@@ -1,51 +1,55 @@
-'use client';
-
 import Link from 'next/link';
-import Header from '../Header';
 
-export default () => {
+export default ({ books }) => {
   return (
     <>
-      <Header></Header>
+      <header className="overflow-hidden pt-6 pb-6 md:pt-12">
+        <div className="pt-4 md:pt-6">
+          <h1
+            id="article-title"
+            className="heti--serif font-black relative text-center text-[2rem] leading-snug mb-4 md:mb-6 md:text-[2.6rem]"
+          >
+            书架
+          </h1>
+        </div>
+      </header>
+
       <section className="px-6 max-w-6xl mx-auto md:px-0">
-        <div className="w-full">
-          <div className="heti--serif w-full text-2xl font-black py-5">
-            :( 未分类
-          </div>
-          <div className="w-full text-xs py-5 relative">
-            <div className="w-full grid grid-cols-2 md:grid-cols-5">
-              <Link
-                href={'/book'}
-                target="_blank"
-                title="点击阅读：云边有个小卖部"
-              >
-                <div className="book">
-                  <div className="book-back book-inner bg-rose-400 bg-[url('/images/6204088509700.png')]"></div>
-                  <div className="book-pages book-inner"></div>
-                  <div className="book-pages book-inner"></div>
-                  <div className="book-pages book-inner"></div>
-                  <div className="book-pages book-inner"></div>
-                  <div className="book-cover book-inner bg-rose-400 bg-[url('/images/6204088509700.png')]">
-                    <h2 className="inline-flex flex-wrap justify-start pr-1.5">
-                      <span className="text-sm book-author w-full">
-                        ROYIANS
-                      </span>
-                      <span className="text-base font-bold break-all">
-                        云边有个小卖部
-                      </span>
-                    </h2>
+        <div className="w-full text-xs py-5 relative">
+          {books.map((book) => {
+            return (
+              <div className="w-full grid grid-cols-2 md:grid-cols-5">
+                <Link
+                  href={`/book/${book.id}`}
+                  target="_blank"
+                  title={`View summary: ${book.book_name}`}
+                >
+                  <div className="book">
+                    <div
+                      style={{ backgroundImage: `url(${book.cover_url})` }}
+                      className={`book-cover book-inner bg-rose-400`}
+                    >
+                      <h2 className="inline-flex flex-wrap justify-start pr-1.5">
+                        <span className="text-sm book-author w-full">
+                          {book.book_author}
+                        </span>
+                        <span className="text-base font-bold break-all">
+                          {book.book_name}
+                        </span>
+                      </h2>
+                    </div>
                   </div>
-                </div>
-              </Link>
-            </div>
-          </div>
+                </Link>
+              </div>
+            );
+          })}
         </div>
       </section>
 
       <style jsx>{`
         .book {
-          width: 125px;
-          height: 179px;
+          width: 145px;
+          height: 200px;
           margin-left: auto;
           margin-right: auto;
           margin-top: 48px;
