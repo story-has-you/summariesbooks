@@ -1,33 +1,19 @@
 export default ({ book }) => {
   return (
     <>
-      <section className="rounded-sm px-6 pb-12 max-w-6xl mx-auto md:px-12 bg-stone-200">
-        <header className="overflow-hidden pt-6 pb-6 md:pt-12">
-          <div className="pt-4 md:pt-6">
-            <h1
-              id="article-title"
-              className="heti--serif text-[2rem] font-bold leading-snug mb-4 md:mb-6 md:text-[2.6rem]"
-            >
-              <span>{book.book_name}</span>
-            </h1>
-            <div className="grid grid-cols-9 gap-2 text-xs">
-              <div className="col-span-3 flex flex-col justify-center md:flex-row">
-                <span
-                  title="View all posts by ROYIANS"
-                  rel="author"
-                  className="font-bold"
-                >
-                  {book.book_author}
-                </span>
-                <span className="hidden px-2 md:block">/</span>
-                <span>{book.publish_date}</span>
-              </div>
+      <section>
+        <div className="mx-auto w-full max-w-7xl px-5 py-16 md:px-10 md:py-24 lg:py-32">
+          <div className="flex justify-start gap-8 sm:gap-20 lg:flex-row">
+            <img src={book.cover_url} className="inline-block w-60 h-96" />
+
+            <div className="flex flex-col">
+              <p className="text-2xl text-center mb-5">{book.book_name}</p>
+              <p className="font-medium">{book.summary}</p>
             </div>
           </div>
-          <article className="heti text-lg post-content mt-10 prose dark:prose-invert post-content heti--serif ">
-            {book.summary}
-          </article>
-        </header>
+          <p className="font-bold">John Robert</p>
+          <p className="text-sm text-[#647084]">Senior Webflow Developer</p>
+        </div>
       </section>
     </>
   );
