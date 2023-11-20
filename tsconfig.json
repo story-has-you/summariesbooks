@@ -22,6 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "supabase.config.ts", "app/models/BookReview.js", "app/api/bookDetail/[id]/route.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "supabase.config.ts"],
   "exclude": ["node_modules"]
 }

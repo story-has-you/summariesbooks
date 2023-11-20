@@ -2,17 +2,20 @@ export default ({ book }) => {
   return (
     <>
       <section>
-        <div className="mx-auto w-full max-w-7xl px-5 py-16 md:px-10 md:py-24 lg:py-32">
-          <div className="flex justify-start gap-8 sm:gap-20 lg:flex-row">
-            <img src={book.cover_url} className="inline-block w-60 h-96" />
+        <div className="container mx-auto p-4">
+          <div className="flex flex-row">
+            <div className="w-1/3 p-4">
+              <img src={book.cover_url} alt="Book Cover" className="mb-4" />
+              <h2 className="text-2xl font-bold mb-4">{book.book_name}</h2>
+              <p className="font-semibold">{book.book_author}</p>
+              <p className="font-semibold">{book.publish_time}</p>
+            </div>
 
-            <div className="flex flex-col">
-              <p className="text-2xl text-center mb-5">{book.book_name}</p>
-              <p className="font-medium">{book.summary}</p>
+            <div className="w-2/3 p-4">
+              <h2 className="text-2xl font-bold mb-4">Summary</h2>
+              <p>{book.summary}</p>
             </div>
           </div>
-          <p className="font-bold">John Robert</p>
-          <p className="text-sm text-[#647084]">Senior Webflow Developer</p>
         </div>
       </section>
     </>
