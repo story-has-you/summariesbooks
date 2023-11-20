@@ -1,6 +1,11 @@
+import { BookReview } from '@/app/types/BookReview';
 import Link from 'next/link';
 
-export default ({ books }) => {
+interface Props {
+  books: BookReview[];
+}
+
+export default ({ books }: Props) => {
   return (
     <>
       <section className="px-6 max-w-6xl mx-auto md:px-0">

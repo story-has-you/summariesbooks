@@ -5,9 +5,10 @@ import { useState, useRef, SetStateAction, Dispatch } from 'react';
 
 interface Props {
   setBooks: Dispatch<SetStateAction<BookReview[]>>;
+  setLoading: Dispatch<SetStateAction<Boolean>>;
 }
 
-export default ({ setBooks }: Props) => {
+export default ({ setBooks, setLoading }: Props) => {
   const [keywords, setKeywords] = useState('');
   const inputRef = useRef(null);
 
@@ -29,14 +30,14 @@ export default ({ setBooks }: Props) => {
   };
 
   const handleSearch = async () => {
+    setLoading(true);
     const res = await fetch('/api/search', {
       method: 'POST',
       body: JSON.stringify(requestBody),
     });
     const books = await res.json();
-    console.log(books);
-
     setBooks(books);
+    setLoading(false);
   };
 
   return (
