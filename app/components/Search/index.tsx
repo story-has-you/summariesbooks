@@ -52,7 +52,7 @@ export default ({ setBooks }: Props) => {
             onChange={handleInputChange}
           />
           <button
-            className="bg-black hover:bg-slate-900 text-white font-bold py-2 px-4 ml-2"
+            className="btn btn-neutral py-2 px-4 ml-2"
             onClick={handleSearch}
           >
             Summarize
