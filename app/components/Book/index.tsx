@@ -13,7 +13,11 @@ export default ({ book }) => {
 
             <div className="w-2/3 p-4">
               <h2 className="text-2xl font-bold mb-4">Summary</h2>
-              <p>{book.summary}</p>
+              <div className="mockup-window border bg-base-300">
+                <div className="flex justify-center px-4 py-16 bg-base-200">
+                  <p className="font-sans text-lg">{book.summary}</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

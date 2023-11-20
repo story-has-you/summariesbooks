@@ -1416,6 +1416,11 @@ react-dom@^18:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
 
+react-icons@^4.12.0:
+  version "4.12.0"
+  resolved "https://registry.npmmirror.com/react-icons/-/react-icons-4.12.0.tgz#54806159a966961bfd5cdb26e492f4dafd6a8d78"
+  integrity sha512-IBaDuHiShdZqmfc/TwHu6+d6k2ltNCf3AszxNmjJc1KUfXdEeRJOKyNvLmAHaarhzGmTSVygNdyu8/opXv2gaw==
+
 react@^18:
   version "18.2.0"
   resolved "https://registry.npmmirror.com/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"
@@ -1780,6 +1785,11 @@ tailwindcss@^3.3.0:
     postcss-selector-parser "^6.0.11"
     resolve "^1.22.2"
     sucrase "^3.32.0"
+
+theme-change@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.npmmirror.com/theme-change/-/theme-change-2.5.0.tgz#d3b064af9c4cd01ab16ce0a4ecb251c827a50e68"
+  integrity sha512-B/UdsgdHAGhSKHTAQnxg/etN0RaMDpehuJmZIjLMDVJ6DGIliRHGD6pODi1CXLQAN9GV0GSyB3G6yCuK05PkPQ==
 
 thenify-all@^1.0.0:
   version "1.6.0"
