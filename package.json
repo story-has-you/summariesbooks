@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.38.4",
+    "daisyui": "^4.4.2",
     "next": "14.0.3",
     "react": "^18",
     "react-dom": "^18",

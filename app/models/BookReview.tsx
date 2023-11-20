@@ -20,3 +20,14 @@ export async function selectDetail(id: String) {
   }
   return data[0];
 }
+
+export async function search(name: String) {
+  const { data, error } = await supabase
+    .from('book_review')
+    .select()
+    .like('book_name', `%${name}%`);
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data;
+}

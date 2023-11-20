@@ -2,9 +2,11 @@
 
 import Bookshelf from './components/Bookshelf';
 import { useEffect, useState } from 'react';
+import Search from './components/Search';
+import { BookReview } from './types/BookReview';
 
 export default function Home() {
-  const [books, setBooks] = useState([]);
+  const [books, setBooks] = useState<BookReview[]>([]);
 
   const fetchBookList = async () => {
     const res = await fetch('/api/bookList', { cache: 'force-cache' });
@@ -19,6 +21,7 @@ export default function Home() {
   }, []);
   return (
     <main>
+      <Search setBooks={setBooks} />
       <Bookshelf books={books} />
     </main>
   );
