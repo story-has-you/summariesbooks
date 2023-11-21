@@ -22,7 +22,7 @@ export default ({ books }: Props) => {
                   <div className="book">
                     <div
                       style={{ backgroundImage: `url(${book.cover_url})` }}
-                      className={`book-cover book-inner bg-rose-400`}
+                      className={`book-cover book-inner bg-rose-400 w-36 h-52`}
                     >
                       {/* <h2 className="inline-flex flex-wrap justify-start pr-1.5">
                         <span className="text-sm book-author w-full">
@@ -43,8 +43,8 @@ export default ({ books }: Props) => {
 
       <style jsx>{`
         .book {
-          width: 150px;
-          height: 200px;
+          width: 144px;
+          height: 208px;
           margin-left: auto;
           margin-right: auto;
           margin-top: 48px;
