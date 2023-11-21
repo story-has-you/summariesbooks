@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode,
 }) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="light">
       <body className={`min-h-screen ${inter.className}`}>
         <Header />
         <Brand />

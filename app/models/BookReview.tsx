@@ -3,7 +3,8 @@ import { supabase } from '@/supabase.config';
 export async function selectList() {
   const { data, error } = await supabase
     .from('book_review')
-    .select('id, book_name, book_author, cover_url');
+    .select('id, book_name, book_author, cover_url')
+    .order('create_time', { ascending: true });
   if (error) {
     throw new Error(error.message);
   }

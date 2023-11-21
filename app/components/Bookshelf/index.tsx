@@ -10,13 +10,11 @@ export default ({ books }: Props) => {
     <>
       <section className="px-6 max-w-6xl mx-auto md:px-0">
         <div className="w-full text-xs py-5 relative">
-          {books.map((book) => {
-            return (
-              <div
-                className="w-full grid grid-cols-2 md:grid-cols-5"
-                key={`${book.id}`}
-              >
+          <div className="w-full grid grid-cols-2 md:grid-cols-5">
+            {books.map((book) => {
+              return (
                 <Link
+                  key={`${book.id}`}
                   href={`/book/${book.id}`}
                   target="_blank"
                   title={`View summary: ${book.book_name}`}
@@ -26,26 +24,26 @@ export default ({ books }: Props) => {
                       style={{ backgroundImage: `url(${book.cover_url})` }}
                       className={`book-cover book-inner bg-rose-400`}
                     >
-                      <h2 className="inline-flex flex-wrap justify-start pr-1.5">
+                      {/* <h2 className="inline-flex flex-wrap justify-start pr-1.5">
                         <span className="text-sm book-author w-full">
                           {book.book_author}
                         </span>
                         <span className="text-base font-bold break-all">
                           {book.book_name}
                         </span>
-                      </h2>
+                      </h2> */}
                     </div>
                   </div>
                 </Link>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </section>
 
       <style jsx>{`
         .book {
-          width: 145px;
+          width: 150px;
           height: 200px;
           margin-left: auto;
           margin-right: auto;

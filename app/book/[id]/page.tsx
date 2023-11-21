@@ -9,10 +9,7 @@ export default ({ params }) => {
   const [book, setBook] = useState<BookReview>({} as BookReview);
 
   const fetchBook = async () => {
-    const res = await fetch(`/api/book/${params.id}`, {
-      cache: 'force-cache',
-    });
-
+    const res = await fetch(`/api/book/${params.id}`);
     if (res) {
       const { data } = await res.json();
       setBook(data);
