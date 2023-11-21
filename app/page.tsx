@@ -14,8 +14,8 @@ export default function Home() {
     setLoading(true)
     const res = await fetch('/api/bookList', { cache: 'force-cache' });
     if (res) {
-      const bookList = await res.json();
-      setBooks(bookList);
+      const { data } = await res.json();
+      setBooks(data);
     }
     setLoading(false)
   };
@@ -27,7 +27,8 @@ export default function Home() {
     <main>
       <Search setBooks={setBooks} setLoading={setLoading} />
       {
-        loading ? <Skeleton /> : <Bookshelf books={books} />
+        
+        loading ? <Skeleton count={30} /> : <Bookshelf books={books} />
       }
       
     </main>

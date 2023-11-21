@@ -35,8 +35,8 @@ export default ({ setBooks, setLoading }: Props) => {
       method: 'POST',
       body: JSON.stringify(requestBody),
     });
-    const books = await res.json();
-    setBooks(books);
+    const { data } = await res.json();
+    setBooks(data);
     setLoading(false);
   };
 

@@ -1,18 +1,21 @@
 'use client';
+import { BookReview } from '@/app/types/BookReview';
 import Book from '../../components/Book';
 
 import { useEffect, useState } from 'react';
+import Skeleton from '@/app/components/Skeleton';
 
 export default ({ params }) => {
-  const [book, setBook] = useState({});
+  const [book, setBook] = useState<BookReview>({} as BookReview);
 
   const fetchBook = async () => {
-    const res = await fetch(`/api/bookDetail/${params.id}`, {
+    const res = await fetch(`/api/book/${params.id}`, {
       cache: 'force-cache',
     });
+
     if (res) {
-      const bookDetail = await res.json();
-      setBook(bookDetail);
+      const { data } = await res.json();
+      setBook(data);
     }
   };
 

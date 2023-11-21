@@ -8,7 +8,6 @@ import Link from 'next/link';
 export default () => {
   useEffect(() => {
     themeChange(false);
-    // 👆 false parameter is required for react project
   }, []);
   return (
     <header className="mx-auto w-full max-w-7xl px-5 py-2 md:px-10 md:pt-4 lg:pt-8">

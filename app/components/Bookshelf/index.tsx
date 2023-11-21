@@ -12,7 +12,10 @@ export default ({ books }: Props) => {
         <div className="w-full text-xs py-5 relative">
           {books.map((book) => {
             return (
-              <div className="w-full grid grid-cols-2 md:grid-cols-5">
+              <div
+                className="w-full grid grid-cols-2 md:grid-cols-5"
+                key={`${book.id}`}
+              >
                 <Link
                   href={`/book/${book.id}`}
                   target="_blank"
