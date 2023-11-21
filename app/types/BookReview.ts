@@ -8,6 +8,4 @@ export interface BookReview {
   create_time: Date;
   update_time: Date;
   cover_url: String;
-  paperback_price: Number;
-  kindle_price: Number;
 }
