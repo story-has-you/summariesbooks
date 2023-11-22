@@ -9,4 +9,5 @@ export interface BookSummary {
   cover_url: String;
   gutenberg_url: String;
   category: Array<String>;
+  amazon_url: String;
 }

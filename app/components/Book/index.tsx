@@ -45,8 +45,21 @@ export default ({ book, loading }: Props) => {
 
               {book.gutenberg_url ? (
                 <Link href={`${book.gutenberg_url}`} target="_blank">
-                  <button className="btn btn-wide btn-neutral mt-10 btn-base w-full h-auto">
+                  <button className="btn btn-neutral mt-10 btn-base w-full h-auto">
                     Read online (web)
+                  </button>
+                </Link>
+              ) : (
+                <></>
+              )}
+
+              {book.amazon_url ? (
+                <Link
+                  target="_blank"
+                  href={`${book.amazon_url}&_encoding=UTF8&tag=summariesbo03-20&linkCode=ur2&linkId=290522e8063b00ffb83aaebcd4ea42ce&camp=1789&creative=9325`}
+                >
+                  <button className="btn btn-neutral mt-5 btn-base w-full h-auto">
+                    See Amazon
                   </button>
                 </Link>
               ) : (
