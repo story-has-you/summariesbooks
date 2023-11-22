@@ -3,9 +3,10 @@ export interface BookSummary {
   book_name: String;
   book_author: String;
   publish_date: String;
-  amazon_url: String;
   summary: String;
   create_time: Date;
   update_time: Date;
   cover_url: String;
+  gutenberg_url: String;
+  category: Array<String>;
 }

@@ -25,10 +25,25 @@ export default ({ book, loading }: Props) => {
               <h2 className="text-2xl font-bold">{book.book_name}</h2>
               <p className="font-semibold">Author: {book.book_author}</p>
               <p className="font-semibold">Published: {book.publish_date}</p>
-              {book.amazon_url ? (
-                <Link href={`${book.amazon_url}`} target="_blank">
+              <p className="font-semibold">
+                Category:{' '}
+                {book.category ? (
+                  book.category.map((item) => {
+                    return (
+                      <div className="badge badge-primary badge-outline">
+                        {item}
+                      </div>
+                    );
+                  })
+                ) : (
+                  <></>
+                )}
+              </p>
+
+              {book.gutenberg_url ? (
+                <Link href={`${book.gutenberg_url}`} target="_blank">
                   <button className="btn btn-wide btn-neutral mt-10 btn-lg">
-                    See on Amazon
+                    Read online (web)
                   </button>
                 </Link>
               ) : (
