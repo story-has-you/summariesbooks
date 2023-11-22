@@ -1,10 +1,11 @@
 'use client';
 
 import { BsGithub, BsTwitter } from 'react-icons/bs';
+import Statement from '../Statement';
 
 export default () => {
   return (
-    <footer className="footer footer-center p-10 text-base-content rounded">
+    <footer className="footer footer-center p-10 text-base-content rounded mx-auto">
       <nav className="grid grid-flow-col gap-4">
         <a className="link link-hover">About us</a>
         <a className="link link-hover">Contact</a>
@@ -29,6 +30,9 @@ export default () => {
           </a>
         </div>
       </nav>
+
+      <Statement></Statement>
+
       <aside>
         <p>© Copyright 2023. All rights reserved.</p>
       </aside>

@@ -25,11 +25,15 @@ export default ({ book, loading }: Props) => {
               <h2 className="text-2xl font-bold">{book.book_name}</h2>
               <p className="font-semibold">Author: {book.book_author}</p>
               <p className="font-semibold">Published: {book.publish_date}</p>
-              <Link href={`${book.amazon_url}`} target="_blank">
-                <button className="btn btn-wide btn-neutral mt-10 btn-lg">
-                  See on Amazon
-                </button>
-              </Link>
+              {book.amazon_url ? (
+                <Link href={`${book.amazon_url}`} target="_blank">
+                  <button className="btn btn-wide btn-neutral mt-10 btn-lg">
+                    See on Amazon
+                  </button>
+                </Link>
+              ) : (
+                <></>
+              )}
             </div>
 
             <div className="w-3/4 p-4">
