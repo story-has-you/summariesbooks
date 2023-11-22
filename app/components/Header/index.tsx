@@ -1,8 +1,6 @@
 'use client';
 
 import { BsGithub, BsTwitter } from 'react-icons/bs';
-import { themeChange } from 'theme-change';
-import { useEffect } from 'react';
 import Link from 'next/link';
 
 export default () => {
