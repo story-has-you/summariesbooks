@@ -56,7 +56,7 @@ export default ({ book, loading }: Props) => {
               {book.amazon_url ? (
                 <Link
                   target="_blank"
-                  href={`${book.amazon_url}&_encoding=UTF8&tag=summariesbo03-20&linkCode=ur2&linkId=290522e8063b00ffb83aaebcd4ea42ce&camp=1789&creative=9325`}
+                  href={`${book.amazon_url}?&_encoding=UTF8&tag=summariesbo03-20&linkCode=ur2&linkId=290522e8063b00ffb83aaebcd4ea42ce&camp=1789&creative=9325`}
                 >
                   <button className="btn btn-neutral mt-5 btn-base w-full h-auto">
                     See Amazon
