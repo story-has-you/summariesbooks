@@ -15,7 +15,7 @@ export default () => {
         <div className="divider"></div>
         <div className="grid card rounded-box">
           <p className="text-2xl font-bold text-left mb-3">Legal Notice</p>
-          <p className="text-base text-left">
+          <div className="text-base text-left">
             <div className="pb-3 text-left">
               The book summaries provided on booksummary.ai are generated using
               OpenAI technology and are intended for educational, informational,
@@ -42,7 +42,7 @@ export default () => {
               will not hold booksummary.ai, its owners, or affiliates liable for
               any claims or disputes arising from the use of our services.
             </div>
-          </p>
+          </div>
         </div>
       </div>
     </>
