@@ -27,7 +27,8 @@ export async function search(name: String) {
   const { data, error } = await supabase
     .from('book_summary')
     .select()
-    .ilike('book_name', `%${name}%`);
+    .ilike('book_name', `%${name}%`)
+    .order('create_time', { ascending: true });
   if (error) {
     throw new Error(error.message);
   }

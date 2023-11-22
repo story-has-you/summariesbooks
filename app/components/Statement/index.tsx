@@ -1,7 +1,7 @@
 export default () => {
   return (
     <>
-      <div className="flex flex-col w-[1500px]">
+      <div className="flex flex-col max-w-full lg:w-[1500px] mx-auto px-4">
         <div className="grid card rounded-box">
           <p className="text-2xl font-bold text-left mb-3">How does it work?</p>
           <p className="text-base text-left">

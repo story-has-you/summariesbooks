@@ -11,15 +11,15 @@ export default ({ book, loading }: Props) => {
     <>
       <section>
         <div className="container mx-auto p-4">
-          <div className="flex flex-row">
-            <div className="w-1/4 p-4">
+          <div className="flex flex-col md:flex-row">
+            <div className="md:w-1/4 p-4 w-full">
               {loading ? (
                 <div className="skeleton w-auto h-[500px]"></div>
               ) : (
                 <img
                   src={`${book.cover_url}`}
                   alt="Book Cover"
-                  className="mb-4"
+                  className="mb-4 w-full h-auto"
                 />
               )}
               <h2 className="text-2xl font-bold">{book.book_name}</h2>
@@ -30,7 +30,10 @@ export default ({ book, loading }: Props) => {
                 {book.category ? (
                   book.category.map((item) => {
                     return (
-                      <div className="badge badge-primary badge-outline">
+                      <div
+                        className="badge badge-primary badge-outline"
+                        key={`${item}`}
+                      >
                         {item}
                       </div>
                     );
@@ -42,7 +45,7 @@ export default ({ book, loading }: Props) => {
 
               {book.gutenberg_url ? (
                 <Link href={`${book.gutenberg_url}`} target="_blank">
-                  <button className="btn btn-wide btn-neutral mt-10 btn-base">
+                  <button className="btn btn-wide btn-neutral mt-10 btn-base w-full h-auto">
                     Read online (web)
                   </button>
                 </Link>
@@ -51,7 +54,7 @@ export default ({ book, loading }: Props) => {
               )}
             </div>
 
-            <div className="w-3/4 p-4">
+            <div className="md:w-3/4 p-4 w-full">
               <h2 className="text-2xl font-bold mb-4">Summary</h2>
               {loading ? (
                 <div className="flex flex-col gap-4 w-full">
