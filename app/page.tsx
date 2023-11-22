@@ -3,11 +3,11 @@
 import Bookshelf from './components/Bookshelf';
 import { useEffect, useState } from 'react';
 import Search from './components/Search';
-import { BookReview } from './types/BookReview';
+import { BookSummary } from './types/BookSummary';
 import Skeleton from './components/Skeleton';
 
 export default function Home() {
-  const [books, setBooks] = useState<BookReview[]>([]);
+  const [books, setBooks] = useState<BookSummary[]>([]);
   const [loading, setLoading] = useState<Boolean>(false)
 
   const fetchBookList = async () => {

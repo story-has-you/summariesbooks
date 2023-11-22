@@ -1,4 +1,4 @@
-import { selectDetail } from '../../../models/BookReview';
+import { selectDetail } from '../../../models/BookSummary';
 
 export async function GET(request: Request, context) {
   const { params } = context;

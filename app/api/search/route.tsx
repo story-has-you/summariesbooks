@@ -1,4 +1,4 @@
-import { search } from '@/app/models/BookReview';
+import { search } from '@/app/models/BookSummary';
 
 export async function POST(request: Request) {
   const { keywords } = await request.json();

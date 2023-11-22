@@ -1,4 +1,4 @@
-export interface BookReview {
+export interface BookSummary {
   id: String;
   book_name: String;
   book_author: String;

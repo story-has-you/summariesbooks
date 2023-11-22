@@ -1,10 +1,10 @@
 'use client';
 
-import { BookReview } from '@/app/types/BookReview';
+import { BookSummary } from '@/app/types/BookSummary';
 import { useState, useRef, SetStateAction, Dispatch } from 'react';
 
 interface Props {
-  setBooks: Dispatch<SetStateAction<BookReview[]>>;
+  setBooks: Dispatch<SetStateAction<BookSummary[]>>;
   setLoading: Dispatch<SetStateAction<Boolean>>;
 }
 

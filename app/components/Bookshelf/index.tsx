@@ -1,8 +1,8 @@
-import { BookReview } from '@/app/types/BookReview';
+import { BookSummary } from '@/app/types/BookSummary';
 import Link from 'next/link';
 
 interface Props {
-  books: BookReview[];
+  books: BookSummary[];
 }
 
 export default ({ books }: Props) => {

@@ -1,4 +1,4 @@
-import { selectList } from '../../models/BookReview';
+import { selectList } from '../../models/BookSummary';
 
 export async function GET(request: Request) {
   const bookList = await selectList();
