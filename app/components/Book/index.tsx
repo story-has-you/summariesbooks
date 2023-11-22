@@ -42,7 +42,7 @@ export default ({ book, loading }: Props) => {
 
               {book.gutenberg_url ? (
                 <Link href={`${book.gutenberg_url}`} target="_blank">
-                  <button className="btn btn-wide btn-neutral mt-10 btn-lg">
+                  <button className="btn btn-wide btn-neutral mt-10 btn-base">
                     Read online (web)
                   </button>
                 </Link>
