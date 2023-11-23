@@ -4,6 +4,7 @@ import './globals.css';
 import Brand from './components/Brand';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import Producthunt from './components/Producthunt';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -22,6 +23,7 @@ export default function RootLayout({
       <body className={`flex flex-col ${inter.className}`}>
         <Header />
         <Brand />
+        <Producthunt />
         {children}
         <Footer />
       </body>
