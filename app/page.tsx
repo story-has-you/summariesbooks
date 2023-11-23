@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import Search from './components/Search';
 import { BookSummary } from './types/BookSummary';
 import Skeleton from './components/Skeleton';
+import Producthunt from './components/Producthunt';
 
 export default function Home() {
   const [books, setBooks] = useState<BookSummary[]>([]);
@@ -25,6 +26,7 @@ export default function Home() {
   }, []);
   return (
     <main>
+      <Producthunt />
       <Search setBooks={setBooks} setLoading={setLoading} />
       {
 

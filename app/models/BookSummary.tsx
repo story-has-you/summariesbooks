@@ -12,11 +12,11 @@ export async function selectList() {
   return data;
 }
 
-export async function selectDetail(id: String) {
+export async function selectDetail(name: String) {
   const { data, error } = await supabase
     .from('book_summary')
     .select()
-    .eq('id', id);
+    .eq('book_name', name);
   if (error) {
     throw new Error(error.message);
   }

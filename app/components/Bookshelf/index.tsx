@@ -15,7 +15,7 @@ export default ({ books }: Props) => {
               return (
                 <Link
                   key={`${book.id}`}
-                  href={`/book/${book.id}`}
+                  href={`/book/${book.book_name}`}
                   target="_blank"
                   title={`View summary: ${book.book_name}`}
                 >

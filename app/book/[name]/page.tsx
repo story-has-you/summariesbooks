@@ -10,7 +10,7 @@ export default ({ params }) => {
 
   const fetchBook = async () => {
     setLoading(true)
-    const res = await fetch(`/api/book/${params.id}`, {next : {revalidate: 3600}});
+    const res = await fetch(`/api/book/${params.name}`, {next : {revalidate: 3600}});
     if (res) {
       const { data } = await res.json();
       setBook(data);
