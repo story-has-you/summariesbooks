@@ -12,7 +12,7 @@ export async function selectList() {
   return data;
 }
 
-export async function selectDetail(name: String) {
+export async function selectDetail(name: string) {
   const { data, error } = await supabase
     .from('book_summary')
     .select()
@@ -23,7 +23,7 @@ export async function selectDetail(name: String) {
   return data[0];
 }
 
-export async function search(name: String) {
+export async function search(name: string) {
   const { data, error } = await supabase
     .from('book_summary')
     .select()

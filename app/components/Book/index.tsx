@@ -1,5 +1,6 @@
 import { BookSummary } from '@/app/types/BookSummary';
 import Link from 'next/link';
+import Mindmap from '../Mindmap';
 
 interface Props {
   book: BookSummary;
@@ -95,6 +96,7 @@ export default ({ book, loading }: Props) => {
             </div>
           </div>
         </div>
+        {book.markdown ? <Mindmap markdown={book.markdown} /> : <></>}
       </section>
     </>
   );
