@@ -9,7 +9,7 @@ import GoogleAnalytics from './components/GoogleAnalytics';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'summayiesboos',
+  title: 'summariesbooks.com',
   description: 'uses GPT-3.5 or GPT-4 to generate a book summary',
 };
 
