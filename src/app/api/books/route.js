@@ -1,4 +1,4 @@
-import { selectList } from "../../../models/book_summary"
+import { selectList } from "../../../service/book_summary"
 
 export async function GET(request) {
   const bookList = await selectList()

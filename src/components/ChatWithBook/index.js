@@ -1,9 +1,21 @@
-import React, { useState } from "react"
+import { useState } from "react"
 import ChatBubble from "./ChatBubble"
 
-const ChatBox = () => {
+const now = () => {
+  return new Date().toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit"
+  })
+}
+
+const ChatBox = ({ book, assistant }) => {
   const [messages, setMessages] = useState([
-    // ...初始消息
+    {
+      sender: `${book.book_name}`, // 或实际的发送者名字
+      text: `Hi, you can ask me all your questions about ${book.book_name}`,
+      time: now(),
+      isReceived: true
+    }
   ])
   const [inputText, setInputText] = useState("")
 
@@ -14,19 +26,18 @@ const ChatBox = () => {
     const newMessage = {
       sender: "You", // 或实际的发送者名字
       text: inputText,
-      time: new Date().toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit"
-      }),
-      status: "Sent",
-      avatarSrc: "/path/to/your/avatar.jpg",
+      time: now(),
       isReceived: false // 假设所有新消息都是发送的
     }
-
     // 更新消息数组并清空输入框
     setMessages([...messages, newMessage])
     setInputText("")
+
+    // 发送openai
+
   }
+
+
 
   return (
     <div className="flex flex-col h-[70vh] md:h-[700px] border border-gray-300 rounded-lg">

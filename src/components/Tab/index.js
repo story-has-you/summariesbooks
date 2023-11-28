@@ -3,8 +3,24 @@ import ChatBox from "../ChatWithBook"
 import Link from "next/link"
 import Mindmap from "../Mindmap"
 
-const Tab = ({ book }) => {
+const Tab = ({ book, assistant }) => {
   const [activeTab, setActiveTab] = useState("summary")
+
+  const onChatWithBook = () => {
+    setActiveTab("chat")
+    createThread()
+  }
+
+  const createThread = async () => {
+    const res = await fetch("/api/thread", {
+      method: "POST"
+    })
+    if (res.ok) {
+      const { data } = await res.json()
+      window.localStorage.setItem(`thread_id_${book.id}`, data)
+    }
+  }
+
 
   return (
     <div>
@@ -26,7 +42,7 @@ const Tab = ({ book }) => {
         <a
           className={`tab tab-bordered ${activeTab === "chat" ? "bg-neutral text-white" : ""
             }`}
-          onClick={() => setActiveTab("chat")}
+          onClick={onChatWithBook}
         >
           Chat With Book
         </a>
@@ -59,7 +75,7 @@ const Tab = ({ book }) => {
 
         {activeTab === "chat" && (
           <div className="mt-5">
-            <ChatBox></ChatBox>
+            <ChatBox book={book} assistant={assistant}></ChatBox>
           </div>
         )}
       </div>

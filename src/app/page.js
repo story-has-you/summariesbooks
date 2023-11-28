@@ -12,7 +12,7 @@ export default function Home() {
 
   const fetchBookList = async () => {
     setLoading(true)
-    const res = await fetch("/api/bookList")
+    const res = await fetch("/api/books")
     if (res) {
       const { data } = await res.json()
       setBooks(data)

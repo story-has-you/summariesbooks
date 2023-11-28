@@ -1,7 +1,7 @@
 import Link from "next/link"
 import Tab from "../Tab"
 
-export default ({ book, loading }) => {
+export default ({ book, loading, assistant }) => {
   return (
     <>
       <section>
@@ -27,7 +27,7 @@ export default ({ book, loading }) => {
                     return (
                       <div
                         className="badge badge-primary badge-outline"
-                        key={`${item}`}
+                        key={item}
                       >
                         {item}
                       </div>
@@ -72,7 +72,7 @@ export default ({ book, loading }) => {
                 </div>
               ) : (
                 <>
-                  <Tab book={book}></Tab>
+                  <Tab book={book} assistant={assistant}></Tab>
                 </>
               )}
             </div>

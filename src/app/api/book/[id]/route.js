@@ -1,4 +1,4 @@
-import { selectDetail } from '@/models/book_summary';
+import { selectDetail } from '@/service/book_summary';
 
 
 export async function GET(request, context) {

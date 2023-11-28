@@ -1,4 +1,4 @@
-import { supabase } from "../../supabase.config"
+import { supabase } from "@/utils/supabase"
 
 export async function selectList() {
   const { data, error } = await supabase
@@ -16,10 +16,11 @@ export async function selectDetail(id) {
     .from("book_summary")
     .select()
     .eq("id", id)
+    .single()
   if (error) {
     throw new Error(error.message)
   }
-  return data[0]
+  return data
 }
 
 export async function search(name) {
