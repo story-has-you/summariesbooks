@@ -5,7 +5,7 @@ export async function selectOne(book_id) {
     .from("book_assistant_relation")
     .select()
     .eq("book_id", book_id)
-    .single()
+    .select()
   if (error) {
     throw new Error(error.message)
   }

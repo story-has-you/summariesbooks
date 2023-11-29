@@ -2,7 +2,6 @@ import React, { useState } from "react"
 import ChatBox from "../ChatWithBook"
 import Link from "next/link"
 import Mindmap from "../Mindmap"
-import { useEffect } from "react";
 
 
 const now = () => {
@@ -42,13 +41,16 @@ const Tab = ({ book, assistant }) => {
         >
           Mind Map
         </a> */}
-        <a
-          className={`tab tab-bordered ${activeTab === "chat" ? "bg-neutral text-white" : ""
-            }`}
-          onClick={() => setActiveTab("chat")}
-        >
-          Chat With Book
-        </a>
+        {
+          Object.keys(assistant).length > 0 && <a
+            className={`tab tab-bordered ${activeTab === "chat" ? "bg-neutral text-white" : ""
+              }`}
+            onClick={() => setActiveTab("chat")}
+          >
+            Chat With Book
+          </a>
+        }
+
       </div>
 
       <div>
@@ -75,6 +77,8 @@ const Tab = ({ book, assistant }) => {
             <Mindmap markdown={book.markdown}></Mindmap>
           </div>
         )}
+
+
 
         {activeTab === "chat" && (
           <div className="mt-5">

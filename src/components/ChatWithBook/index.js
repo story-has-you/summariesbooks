@@ -80,6 +80,8 @@ const ChatBox = ({ book, assistant, messages, setMessages, now }) => {
       if (res.ok) {
         const { data } = await res.json();
         loopStatus(data.thread_id, data.run_id);
+      } else {
+        throw new Error(res.messages)
       }
     } catch (error) {
       setSending(false);

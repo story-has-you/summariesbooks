@@ -35,6 +35,9 @@ export default ({ params }) => {
     const res = await fetch(`/api/assistant/${params.id}`);
     if (res.ok) {
       const { data } = await res.json();
+      if (!data) {
+        return
+      }
       setAssistant(data);
       await createThread()
       const text = `Please parse the uploaded file and answer the question in the language of the questioner.`
@@ -49,13 +52,13 @@ export default ({ params }) => {
     })
     if (res.ok) {
       const { data } = await res.json()
-      window.localStorage.setItem(`thread_id_${book.id}`, data)
+      window.localStorage.setItem(`thread_id_${params.id}`, data)
     }
   }
 
 
   const fetchPostAssistant = async (text, assistant_id) => {
-    const thread_id = window.localStorage.getItem(`thread_id_${book.id}`);
+    const thread_id = window.localStorage.getItem(`thread_id_${params.id}`);
     if (!thread_id) {
       return;
     }
@@ -73,6 +76,7 @@ export default ({ params }) => {
   useEffect(() => {
     fetchBook();
     fetchAssistant();
+    return () => deleteThread()
   }, []);
   return (
     <>
