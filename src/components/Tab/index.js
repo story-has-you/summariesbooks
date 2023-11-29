@@ -2,24 +2,27 @@ import React, { useState } from "react"
 import ChatBox from "../ChatWithBook"
 import Link from "next/link"
 import Mindmap from "../Mindmap"
+import { useEffect } from "react";
+
+
+const now = () => {
+  return new Date().toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};
 
 const Tab = ({ book, assistant }) => {
+  const [messages, setMessages] = useState([
+    {
+      sender: `${book.book_name}`, // 或实际的发送者名字
+      text: `Hi, you can ask me all your questions about ${book.book_name}`,
+      time: now(),
+      isReceived: true,
+    },
+  ]);
+
   const [activeTab, setActiveTab] = useState("summary")
-
-  const onChatWithBook = () => {
-    setActiveTab("chat")
-    createThread()
-  }
-
-  const createThread = async () => {
-    const res = await fetch("/api/thread", {
-      method: "POST"
-    })
-    if (res.ok) {
-      const { data } = await res.json()
-      window.localStorage.setItem(`thread_id_${book.id}`, data)
-    }
-  }
 
 
   return (
@@ -32,17 +35,17 @@ const Tab = ({ book, assistant }) => {
         >
           Summary
         </a>
-        <a
+        {/* <a
           className={`tab tab-bordered ${activeTab === "mindmap" ? "bg-neutral text-white" : ""
             }`}
           onClick={() => setActiveTab("mindmap")}
         >
           Mind Map
-        </a>
+        </a> */}
         <a
           className={`tab tab-bordered ${activeTab === "chat" ? "bg-neutral text-white" : ""
             }`}
-          onClick={onChatWithBook}
+          onClick={() => setActiveTab("chat")}
         >
           Chat With Book
         </a>
@@ -75,7 +78,7 @@ const Tab = ({ book, assistant }) => {
 
         {activeTab === "chat" && (
           <div className="mt-5">
-            <ChatBox book={book} assistant={assistant}></ChatBox>
+            <ChatBox book={book} assistant={assistant} messages={messages} setMessages={setMessages} now={now}></ChatBox>
           </div>
         )}
       </div>

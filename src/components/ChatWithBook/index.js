@@ -1,25 +1,14 @@
-import { useState } from "react";
-import ChatBubble from "./ChatContainer";
+import { useEffect, useState } from "react";
 import ChatContainer from "./ChatContainer";
 
-const now = () => {
-  return new Date().toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-};
 
-const ChatBox = ({ book, assistant }) => {
-  const [messages, setMessages] = useState([
-    {
-      sender: `${book.book_name}`, // 或实际的发送者名字
-      text: `Hi, you can ask me all your questions about ${book.book_name}`,
-      time: now(),
-      isReceived: true,
-    },
-  ]);
+const ChatBox = ({ book, assistant, messages, setMessages, now }) => {
   const [inputText, setInputText] = useState("");
   const [sending, setSending] = useState(false);
+
+  const handleClear = () => {
+    setMessages([])
+  }
 
   const handleSend = () => {
     if (sending) {
@@ -86,11 +75,23 @@ const ChatBox = ({ book, assistant }) => {
 
   const sendAi = async (text, assistant) => {
     setSending(true);
+    try {
+      const res = await fetchAssistant(text, assistant)
+      if (res.ok) {
+        const { data } = await res.json();
+        loopStatus(data.thread_id, data.run_id);
+      }
+    } catch (error) {
+      setSending(false);
+    }
+  };
+
+  const fetchAssistant = async (text, assistant) => {
     const thread_id = window.localStorage.getItem(`thread_id_${book.id}`);
     if (!thread_id) {
       return;
     }
-    const res = await fetch("/api/assistant", {
+    return await fetch("/api/assistant", {
       method: "POST",
       body: JSON.stringify({
         assistant_id: assistant.assistant_id,
@@ -98,17 +99,13 @@ const ChatBox = ({ book, assistant }) => {
         text: text,
       }),
     });
+  }
 
-    if (res.ok) {
-      const { data } = await res.json();
-      loopStatus(data.thread_id, data.run_id);
-    }
-  };
 
   return (
-    <div className="flex flex-col h-[85vh] md:h-[850px] border border-gray-300 rounded-lg">
+    <div className="flex flex-col h-[75vh] md:h-[750px] border border-gray-300 rounded-lg">
       <div className="flex-grow overflow-auto p-4">
-        <ChatContainer messages={messages} />
+        <ChatContainer messages={messages} sending={sending} />
       </div>
       <div className="flex p-4 bg-gray-100">
         <input
@@ -122,8 +119,14 @@ const ChatBox = ({ book, assistant }) => {
             }
           }}
           className="flex-grow p-2 border border-gray-300 rounded mr-2"
-          placeholder="Type a message..."
+          placeholder="Type a message and press Enter to send"
         />
+        <button
+          onClick={handleClear}
+          className={`btn btn-neutral ml-2`}
+        >
+          清空
+        </button>
         <button
           onClick={handleSend}
           className={`btn btn-neutral ml-2 ${sending ? "btn-disabled" : ""}`}

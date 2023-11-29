@@ -7,10 +7,14 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      keyframes: {
+        bounce: {
+          '0%, 100%': { transform: 'translateY(-25%)', opacity: '0.3' },
+          '50%': { transform: 'translateY(0)', opacity: '1' },
+        },
+      },
+      animation: {
+        'bounce-slow': 'bounce 1.4s ease-in-out infinite',
       },
     },
   },

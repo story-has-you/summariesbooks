@@ -2,6 +2,7 @@ import Link from "next/link";
 import Tab from "../Tab";
 
 export default ({ book, loading, assistant }) => {
+
   return (
     <>
       <section>

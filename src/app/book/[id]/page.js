@@ -14,7 +14,6 @@ export default ({ params }) => {
     if (res) {
       const { data } = await res.json();
       setBook(data);
-      fetchAssistant();
     }
     setLoading(false);
   };
@@ -37,14 +36,44 @@ export default ({ params }) => {
     if (res.ok) {
       const { data } = await res.json();
       setAssistant(data);
+      await createThread()
+      const text = `Please parse the uploaded file and answer the question in the language of the questioner.`
+      fetchPostAssistant(text, data.assistant_id)
     }
   };
 
+
+  const createThread = async () => {
+    const res = await fetch("/api/thread", {
+      method: "POST"
+    })
+    if (res.ok) {
+      const { data } = await res.json()
+      window.localStorage.setItem(`thread_id_${book.id}`, data)
+    }
+  }
+
+
+  const fetchPostAssistant = async (text, assistant_id) => {
+    const thread_id = window.localStorage.getItem(`thread_id_${book.id}`);
+    if (!thread_id) {
+      return;
+    }
+    return await fetch("/api/assistant", {
+      method: "POST",
+      body: JSON.stringify({
+        assistant_id: assistant_id,
+        thread_id: thread_id,
+        text: text,
+      }),
+    });
+  }
+
+
   useEffect(() => {
     fetchBook();
-    return () => deleteThread();
+    fetchAssistant();
   }, []);
-
   return (
     <>
       <Book book={book} loading={loading} assistant={assistant}></Book>

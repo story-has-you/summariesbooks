@@ -1,6 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
+import './ChatStyles.css';
 
-const ChatContainer = ({ messages }) => {
+const ChatContainer = ({ messages, sending }) => {
   const endOfMessagesRef = useRef(null);
   const containerRef = useRef(null);
 
@@ -9,6 +10,7 @@ const ChatContainer = ({ messages }) => {
       const { scrollHeight, clientHeight } = containerRef.current;
       containerRef.current.scrollTo(0, scrollHeight - clientHeight);
     }
+
   }, [messages]);
 
   return (
@@ -19,10 +21,25 @@ const ChatContainer = ({ messages }) => {
       {messages.map((message, index) => (
         <ChatBubble key={index} message={message} />
       ))}
+      {sending && <TypingIndicator />}
       <div ref={endOfMessagesRef} />
     </div>
   );
 };
+
+const TypingIndicator = () => {
+  return (
+    <>
+      <div className="flex items-center p-2">
+        <div className="typing-dot bg-neutral"></div>
+        <div className="typing-dot bg-neutral ml-1"></div>
+        <div className="typing-dot bg-neutral ml-1"></div>
+      </div>
+    </>
+  );
+
+};
+
 
 const ChatBubble = ({ message }) => {
   const { sender, text, time, isReceived } = message;
