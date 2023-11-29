@@ -1,5 +1,5 @@
-import Link from "next/link"
-import Tab from "../Tab"
+import Link from "next/link";
+import Tab from "../Tab";
 
 export default ({ book, loading, assistant }) => {
   return (
@@ -23,7 +23,7 @@ export default ({ book, loading, assistant }) => {
               <p className="font-semibold">
                 Category:{" "}
                 {book.category ? (
-                  book.category.map(item => {
+                  book.category.map((item) => {
                     return (
                       <div
                         className="badge badge-primary badge-outline"
@@ -31,7 +31,7 @@ export default ({ book, loading, assistant }) => {
                       >
                         {item}
                       </div>
-                    )
+                    );
                   })
                 ) : (
                   <></>
@@ -66,8 +66,8 @@ export default ({ book, loading, assistant }) => {
               {loading ? (
                 <div className="flex flex-col gap-4 w-full">
                   <div className="skeleton h-4 w-56"></div>
-                  {[...Array(15).keys()].map(i => {
-                    return <div className="skeleton h-4 w-full"></div>
+                  {[...Array(15).keys()].map((i) => {
+                    return <div className="skeleton h-4 w-full"></div>;
                   })}
                 </div>
               ) : (
@@ -80,5 +80,5 @@ export default ({ book, loading, assistant }) => {
         </div>
       </section>
     </>
-  )
-}
+  );
+};

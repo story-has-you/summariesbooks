@@ -1,35 +1,34 @@
-import { HttpsProxyAgent } from "https-proxy-agent"
-import OpenAI from "openai"
+import { HttpsProxyAgent } from "https-proxy-agent";
+import OpenAI from "openai";
 
 const openai = new OpenAI({
   apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
-  httpAgent: new HttpsProxyAgent("http://127.0.0.1:7890")
-})
-
+  httpAgent: new HttpsProxyAgent("http://172.20.10.1:7890"),
+});
 
 export async function createThread() {
-  return await openai.beta.threads.create()
+  return await openai.beta.threads.create();
 }
 
 export async function deleteThread(thread_id) {
-  return await openai.beta.threads.del(thread_id)
+  return await openai.beta.threads.del(thread_id);
 }
 
 export async function createMessage(thread_id, content) {
   return await openai.beta.threads.messages.create(thread_id, {
     role: "user",
-    content: content
-  })
+    content: content,
+  });
 }
 
 export async function listMessage(thread_id) {
-  return await openai.beta.threads.messages.list(thread_id)
+  return await openai.beta.threads.messages.list(thread_id);
 }
 
 export async function run(thread_id, assistant_id) {
   return await openai.beta.threads.runs.create(thread_id, {
-    assistant_id: assistant_id
-  })
+    assistant_id: assistant_id,
+  });
 }
 
 export async function createThreadAndRun(assistant_id, content) {
@@ -38,31 +37,31 @@ export async function createThreadAndRun(assistant_id, content) {
     thread: {
       messages: [
         { role: "user", content: "Please analyze the uploaded file" },
-        { role: "user", content: content }
-      ]
-    }
-  })
+        { role: "user", content: content },
+      ],
+    },
+  });
 }
 
 export async function retrieveRun(thread_id, run_id) {
-  return await openai.beta.threads.runs.retrieve(thread_id, run_id)
+  return await openai.beta.threads.runs.retrieve(thread_id, run_id);
 }
 
 export async function talk(assistant_id, content, callback) {
-  const { id, thread_id } = await createThreadAndRun(assistant_id, content)
-  let messages
+  const { id, thread_id } = await createThreadAndRun(assistant_id, content);
+  let messages;
   const intervalId = setInterval(async () => {
-    const { status } = await retrieveRun(thread_id, id)
+    const { status } = await retrieveRun(thread_id, id);
     if (status == "completed") {
-      clearInterval(intervalId)
-      const messages = await listMessage(thread_id)
+      clearInterval(intervalId);
+      const messages = await listMessage(thread_id);
       const value = messages.data
-        .filter(message => message.role == "assistant")
-        .map(message => {
-          return message.content.map(item => item.text.value).join()
+        .filter((message) => message.role == "assistant")
+        .map((message) => {
+          return message.content.map((item) => item.text.value).join();
         })
-        .join()
-      callback(value)
+        .join();
+      callback(value);
     }
-  }, 3000)
+  }, 3000);
 }
