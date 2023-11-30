@@ -1,4 +1,17 @@
+import OpenAI from "openai";
 import fetchAPI from "./api";
+
+export const createOpenAI = () => {
+  if (process.env == "dev" || process.env == "development") {
+    return new OpenAI({
+      apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
+      httpAgent: new HttpsProxyAgent(process.env.NEXT_PUBLIC_HTTP_PROXY),
+    });
+  }
+  return new OpenAI({
+    apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
+  });
+};
 
 export const talkAi = async (text, assistant, callback) => {
   const thread_id = window.localStorage.getItem(

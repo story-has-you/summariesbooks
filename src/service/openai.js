@@ -1,17 +1,7 @@
-import { HttpsProxyAgent } from "https-proxy-agent";
-import OpenAI from "openai";
+import { createOpenAI } from "@/utils/openai";
 
-const openai = () => {
-  if (process.env == "dev" || process.env == "development") {
-    return new OpenAI({
-      apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
-      httpAgent: new HttpsProxyAgent(process.env.NEXT_PUBLIC_HTTP_PROXY),
-    });
-  }
-  return new OpenAI({
-    apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
-  });
-};
+const openai = createOpenAI();
+
 export async function createThread() {
   return await openai.beta.threads.create();
 }
