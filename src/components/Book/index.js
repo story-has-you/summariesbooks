@@ -1,8 +1,7 @@
 import Link from "next/link";
 import Tab from "../Tab";
 
-export default ({ book, loading, assistant }) => {
-
+export default ({ book, loading, assistant, initChating }) => {
   return (
     <>
       <section>
@@ -73,7 +72,11 @@ export default ({ book, loading, assistant }) => {
                 </div>
               ) : (
                 <>
-                  <Tab book={book} assistant={assistant}></Tab>
+                  <Tab
+                    book={book}
+                    assistant={assistant}
+                    initChating={initChating}
+                  ></Tab>
                 </>
               )}
             </div>

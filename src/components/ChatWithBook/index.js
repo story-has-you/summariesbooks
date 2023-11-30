@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ChatContainer from "./ChatContainer";
-
+import { talkAi } from "@/utils/openai";
 
 const ChatBox = ({ book, assistant, messages, setMessages, now }) => {
   const [inputText, setInputText] = useState("");
   const [sending, setSending] = useState(false);
 
   const handleClear = () => {
-    setMessages([])
-  }
+    setMessages([]);
+  };
 
   const handleSend = () => {
     if (sending) {
@@ -30,36 +30,10 @@ const ChatBox = ({ book, assistant, messages, setMessages, now }) => {
     sendAi(newMessage.text, assistant);
   };
 
-  const fatchRetrieveRun = async (thread_id, run_id) => {
-    const res = await fetch("/api/assistant/retrieve_run", {
-      method: "POST",
-      body: JSON.stringify({ thread_id, run_id }),
-    });
-    if (res.ok) {
-      const { data } = await res.json();
-      return data;
-    }
-    return "Fail";
-  };
-
-  const fatchMessages = async (thread_id) => {
-    const res = await fetch("/api/assistant/message", {
-      method: "POST",
-      body: JSON.stringify({ thread_id }),
-    });
-    if (res.ok) {
-      const { data } = await res.json();
-      return data;
-    }
-    return null;
-  };
-
-  const loopStatus = (thread_id, run_id) => {
-    const timer = setInterval(async () => {
-      const status = await fatchRetrieveRun(thread_id, run_id);
-      if (status == "completed") {
-        clearInterval(timer);
-        const value = await fatchMessages(thread_id);
+  const sendAi = async (text, assistant) => {
+    setSending(true);
+    try {
+      await talkAi(text, assistant, (value) => {
         // 创建新消息对象
         const newMessage = {
           sender: book.book_name, // 或实际的发送者名字
@@ -69,40 +43,11 @@ const ChatBox = ({ book, assistant, messages, setMessages, now }) => {
         };
         setMessages((current) => [...current, newMessage]);
         setSending(false);
-      }
-    }, 3000);
-  };
-
-  const sendAi = async (text, assistant) => {
-    setSending(true);
-    try {
-      const res = await fetchAssistant(text, assistant)
-      if (res.ok) {
-        const { data } = await res.json();
-        loopStatus(data.thread_id, data.run_id);
-      } else {
-        throw new Error(res.messages)
-      }
+      });
     } catch (error) {
       setSending(false);
     }
   };
-
-  const fetchAssistant = async (text, assistant) => {
-    const thread_id = window.localStorage.getItem(`thread_id_${book.id}`);
-    if (!thread_id) {
-      return;
-    }
-    return await fetch("/api/assistant", {
-      method: "POST",
-      body: JSON.stringify({
-        assistant_id: assistant.assistant_id,
-        thread_id: thread_id,
-        text: text,
-      }),
-    });
-  }
-
 
   return (
     <div className="flex flex-col h-[75vh] md:h-[750px] border border-gray-300 rounded-lg">
@@ -123,10 +68,7 @@ const ChatBox = ({ book, assistant, messages, setMessages, now }) => {
           className="flex-grow p-2 border border-gray-300 rounded mr-2"
           placeholder="Type a message and press Enter to send"
         />
-        <button
-          onClick={handleClear}
-          className={`btn btn-neutral ml-2`}
-        >
+        <button onClick={handleClear} className={`btn btn-neutral ml-2`}>
           清空
         </button>
         <button

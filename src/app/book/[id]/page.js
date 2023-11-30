@@ -1,19 +1,23 @@
 "use client";
 
 import Book from "@/components/Book";
+import fetchAPI from "@/utils/api";
+import { talkAi } from "@/utils/openai";
 import { useEffect, useState } from "react";
 
 export default ({ params }) => {
   const [book, setBook] = useState({});
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [assistant, setAssistant] = useState({});
+  const [initChating, setInitChating] = useState(true);
 
   const fetchBook = async () => {
     setLoading(true);
-    const res = await fetch(`/api/book/${params.id}`);
-    if (res) {
-      const { data } = await res.json();
+    try {
+      const { data } = await fetchAPI(`/api/book/${params.id}`);
       setBook(data);
+    } catch (error) {
+      console.error("Error fetching book:", error);
     }
     setLoading(false);
   };
@@ -23,64 +27,64 @@ export default ({ params }) => {
     if (!thread_id) {
       return;
     }
-    const res = await fetch(`/api/thread/${thread_id}`, {
-      method: "DELETE",
-    });
-    if (res.ok) {
+    try {
+      await fetchAPI(`/api/thread/${thread_id}`, "DELETE");
       window.localStorage.removeItem(`thread_id_${book.id}`);
+    } catch (error) {
+      console.error("Error deleting thread:", error);
     }
   };
 
   const fetchAssistant = async () => {
-    const res = await fetch(`/api/assistant/${params.id}`);
-    if (res.ok) {
-      const { data } = await res.json();
+    setInitChating(true);
+    try {
+      const { data } = await fetchAPI(`/api/assistant/${params.id}`);
       if (!data) {
-        return
+        return;
       }
       setAssistant(data);
-      await createThread()
-      const text = `Please parse the uploaded file and answer the question in the language of the questioner.`
-      fetchPostAssistant(text, data.assistant_id)
+      await createThread();
+      const text = `Please parse the uploaded file and answer the question in the language of the questioner.`;
+      fetchPostAssistant(text, data);
+    } catch (error) {
+      console.error("Error fetching assistant:", error);
     }
   };
 
-
   const createThread = async () => {
-    const res = await fetch("/api/thread", {
-      method: "POST"
-    })
-    if (res.ok) {
-      const { data } = await res.json()
-      window.localStorage.setItem(`thread_id_${params.id}`, data)
+    try {
+      const { data } = await fetchAPI("/api/thread", { method: "POST" });
+      window.localStorage.setItem(`thread_id_${params.id}`, data);
+    } catch (error) {
+      console.error("Error creating thread:", error);
     }
-  }
+  };
 
-
-  const fetchPostAssistant = async (text, assistant_id) => {
+  const fetchPostAssistant = async (text, assistant) => {
     const thread_id = window.localStorage.getItem(`thread_id_${params.id}`);
     if (!thread_id) {
       return;
     }
-    return await fetch("/api/assistant", {
-      method: "POST",
-      body: JSON.stringify({
-        assistant_id: assistant_id,
-        thread_id: thread_id,
-        text: text,
-      }),
-    });
-  }
-
+    try {
+      talkAi(text, assistant, (value) => setInitChating(false));
+    } catch (error) {
+      console.error("Error posting to assistant:", error);
+    }
+  };
 
   useEffect(() => {
     fetchBook();
     fetchAssistant();
-    return () => deleteThread()
+    return () => deleteThread();
   }, []);
   return (
     <>
-      <Book book={book} loading={loading} assistant={assistant}></Book>
+      <Book
+        book={book}
+        loading={loading}
+        assistant={assistant}
+        initChating={initChating}
+      ></Book>
     </>
   );
 };

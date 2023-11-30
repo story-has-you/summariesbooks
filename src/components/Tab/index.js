@@ -1,8 +1,7 @@
-import React, { useState } from "react"
-import ChatBox from "../ChatWithBook"
-import Link from "next/link"
-import Mindmap from "../Mindmap"
-
+import React, { useState } from "react";
+import ChatBox from "../ChatWithBook";
+import Link from "next/link";
+import Mindmap from "../Mindmap";
 
 const now = () => {
   return new Date().toLocaleTimeString([], {
@@ -11,7 +10,7 @@ const now = () => {
   });
 };
 
-const Tab = ({ book, assistant }) => {
+const Tab = ({ book, assistant, initChating }) => {
   const [messages, setMessages] = useState([
     {
       sender: `${book.book_name}`, // 或实际的发送者名字
@@ -21,15 +20,15 @@ const Tab = ({ book, assistant }) => {
     },
   ]);
 
-  const [activeTab, setActiveTab] = useState("summary")
-
+  const [activeTab, setActiveTab] = useState("summary");
 
   return (
     <div>
       <div className="tabs tabs-boxed">
         <a
-          className={`tab tab-bordered ${activeTab === "summary" ? "bg-neutral text-white" : ""
-            }`}
+          className={`tab tab-bordered ${
+            activeTab === "summary" ? "bg-neutral text-white" : ""
+          }`}
           onClick={() => setActiveTab("summary")}
         >
           Summary
@@ -42,15 +41,29 @@ const Tab = ({ book, assistant }) => {
           Mind Map
         </a> */}
         {
-          Object.keys(assistant).length > 0 && <a
-            className={`tab tab-bordered ${activeTab === "chat" ? "bg-neutral text-white" : ""
-              }`}
-            onClick={() => setActiveTab("chat")}
+          <a
+            className={`tab tab-bordered ${
+              initChating ? "bg-gray-300 text-gray-500 opacity-50" : ""
+            } ${
+              Object.keys(assistant).length > 0
+                ? activeTab === "chat"
+                  ? "bg-neutral text-white"
+                  : ""
+                : "bg-gray-300 text-gray-500 cursor-not-allowed opacity-50"
+            }`}
+            onClick={() => {
+              if (Object.keys(assistant).length > 0 && !initChating) {
+                setActiveTab("chat");
+              }
+            }}
           >
-            Chat With Book
+            {Object.keys(assistant).length > 0
+              ? initChating
+                ? "Chat With Book Be Initializing..."
+                : "Chat With Book"
+              : "This book does not support chat"}
           </a>
         }
-
       </div>
 
       <div>
@@ -78,16 +91,20 @@ const Tab = ({ book, assistant }) => {
           </div>
         )}
 
-
-
         {activeTab === "chat" && (
           <div className="mt-5">
-            <ChatBox book={book} assistant={assistant} messages={messages} setMessages={setMessages} now={now}></ChatBox>
+            <ChatBox
+              book={book}
+              assistant={assistant}
+              messages={messages}
+              setMessages={setMessages}
+              now={now}
+            ></ChatBox>
           </div>
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Tab
+export default Tab;
