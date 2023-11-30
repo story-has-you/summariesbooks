@@ -40,7 +40,7 @@ const Tab = ({ book, assistant, initChating }) => {
         >
           Mind Map
         </a> */}
-        {
+        {/*
           <a
             className={`tab tab-bordered ${
               initChating ? "bg-gray-300 text-gray-500 opacity-50" : ""
@@ -63,7 +63,7 @@ const Tab = ({ book, assistant, initChating }) => {
                 : "Chat With Book"
               : "This book does not support chat"}
           </a>
-        }
+            */}
       </div>
 
       <div>
