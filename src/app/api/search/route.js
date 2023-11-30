@@ -1,10 +1,10 @@
-import { search } from "@/app/models/BookSummary"
+import { search } from "@/service/book_summary";
 
 export async function POST(request) {
-  const { keywords } = await request.json()
-  const books = await search(keywords)
+  const { keywords } = await request.json();
+  const books = await search(keywords);
   if (!books) {
-    return Response.json({ data: [] })
+    return Response.json({ data: [] });
   }
-  return Response.json({ data: books })
+  return Response.json({ data: books });
 }

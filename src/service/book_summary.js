@@ -1,46 +1,21 @@
-import { supabase } from "@/utils/supabase"
+import { sql, db } from "@vercel/postgres";
 
 export async function selectList() {
-  const { data, error } = await supabase
-    .from("book_summary")
-    .select("id, book_name, book_author, cover_url")
-    .order("create_time", { ascending: true })
-  if (error) {
-    throw new Error(error.message)
-  }
-  return data
+  const { rows } =
+    await sql`select id, book_name, book_author, cover_url from book_summary order by create_time asc`;
+  return rows;
 }
 
 export async function selectDetail(id) {
-  const { data, error } = await supabase
-    .from("book_summary")
-    .select()
-    .eq("id", id)
-    .single()
-  if (error) {
-    throw new Error(error.message)
-  }
-  return data
+  const { rows } = await sql`select * from book_summary where id = ${id}`;
+  return rows[0];
 }
 
 export async function search(name) {
-  const { data, error } = await supabase
-    .from("book_summary")
-    .select()
-    .ilike("book_name", `%${name}%`)
-    .order("create_time", { ascending: true })
-  if (error) {
-    throw new Error(error.message)
-  }
-  return data
-}
-
-export async function insert(value) {
-  const { status, error } = await supabase
-    .from("countries")
-    .insert({ ...value })
-  if (error) {
-    throw new Error(error.message)
-  }
-  return status
+  const query =
+    "SELECT * FROM book_summary WHERE book_name ilike $1 ORDER BY create_time ASC";
+  const values = [`%${name}%`];
+  const client = await db.connect();
+  const { rows } = await client.query(query, values);
+  return rows;
 }

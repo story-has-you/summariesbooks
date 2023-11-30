@@ -12,7 +12,7 @@ export default ({ book, loading, assistant, initChating }) => {
                 <div className="skeleton w-auto h-[500px]"></div>
               ) : (
                 <img
-                  src={`${book.cover_url}`}
+                  src={book.cover_url}
                   alt="Book Cover"
                   className="mb-4 w-full h-auto"
                 />
@@ -67,7 +67,7 @@ export default ({ book, loading, assistant, initChating }) => {
                 <div className="flex flex-col gap-4 w-full">
                   <div className="skeleton h-4 w-56"></div>
                   {[...Array(15).keys()].map((i) => {
-                    return <div className="skeleton h-4 w-full"></div>;
+                    return <div className="skeleton h-4 w-full" key={i}></div>;
                   })}
                 </div>
               ) : (
