@@ -1,7 +1,7 @@
 "use client";
 
 import Book from "@/components/Book";
-import fetchAPI from "@/utils/api";
+import { fetchAPI } from "@/utils/api";
 import { talkAi } from "@/utils/openai";
 import { useEffect, useState } from "react";
 

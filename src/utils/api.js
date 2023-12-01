@@ -7,7 +7,7 @@
  * @param {Object} [body=null] - The body of the request, for methods like POST.
  * @returns {Promise<any>} - The response data.
  */
-async function fetchAPI(url, options = {}) {
+export const fetchAPI = async (url, options = {}) => {
   const headers = { "Content-Type": "application/json" };
 
   const { method = "GET", body = null } = options;
@@ -30,6 +30,4 @@ async function fetchAPI(url, options = {}) {
     console.error("Fetch error:", error);
     throw error;
   }
-}
-
-export default fetchAPI;
+};

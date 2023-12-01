@@ -1,7 +1,5 @@
-'use client';
-
-import { BsGithub, BsTwitter } from 'react-icons/bs';
-import Statement from '../Statement';
+import { BsGithub, BsTwitter } from "react-icons/bs";
+import Statement from "../Statement";
 
 export default () => {
   return (

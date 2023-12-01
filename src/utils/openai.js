@@ -1,5 +1,5 @@
 import OpenAI from "openai";
-import fetchAPI from "./api";
+import { fetchAPI } from "./api";
 
 export const createOpenAI = () => {
   if (process.env == "dev" || process.env == "development") {

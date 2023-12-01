@@ -1,13 +1,14 @@
-'use client';
+"use client";
 
-import { BsGithub, BsTwitter } from 'react-icons/bs';
-import Link from 'next/link';
+import { BsGithub, BsTwitter } from "react-icons/bs";
+import Link from "next/link";
+import Producthunt from "../Producthunt";
 
 export default () => {
   return (
     <header className="mx-auto w-full max-w-7xl px-5 py-2 md:px-10 md:pt-4 lg:pt-8">
       <h1 className="text-3xl font-medium flex items-center">
-        <Link href={'/'}>
+        <Link href={"/"}>
           <p className="text-3xl">Book Summarize</p>
         </Link>
         <div className="flex-1">
