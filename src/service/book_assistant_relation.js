@@ -1,7 +1,13 @@
-import { sql } from "@vercel/postgres";
+import { supabase } from "@/utils/supabase";
 
 export async function selectOne(book_id) {
-  const { rows } =
-    await sql`SELECT * from book_assistant_relation where book_id=${book_id}`;
-  return rows[0];
+  const { data, error } = await supabase
+    .from("book_assistant_relation")
+    .select()
+    .eq("book_id", book_id)
+    .single();
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data;
 }
