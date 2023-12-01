@@ -1,46 +1,31 @@
-import { supabase } from "@/utils/supabase";
+import { supabaseClient } from "@/utils/supabase/client";
+import { handleError } from "@/utils/util";
 
-export async function selectList() {
+export const selectList = async () => {
+  const supabase = supabaseClient();
   const { data, error } = await supabase
     .from("book_summary")
     .select("id, book_name, book_author, cover_url")
     .order("create_time", { ascending: true });
-  if (error) {
-    throw new Error(error.message);
-  }
-  return data;
-}
+  return handleError(data, error);
+};
 
-export async function selectDetail(id) {
+export const selectDetail = async (id) => {
+  const supabase = supabaseClient();
   const { data, error } = await supabase
     .from("book_summary")
     .select()
     .eq("id", id)
     .single();
-  if (error) {
-    throw new Error(error.message);
-  }
-  return data;
-}
+  return handleError(data, error);
+};
 
-export async function search(name) {
+export const search = async (name) => {
+  const supabase = supabaseClient();
   const { data, error } = await supabase
     .from("book_summary")
     .select()
     .ilike("book_name", `%${name}%`)
     .order("create_time", { ascending: true });
-  if (error) {
-    throw new Error(error.message);
-  }
-  return data;
-}
-
-export async function insert(value) {
-  const { status, error } = await supabase
-    .from("countries")
-    .insert({ ...value });
-  if (error) {
-    throw new Error(error.message);
-  }
-  return status;
-}
+  return handleError(data, error);
+};

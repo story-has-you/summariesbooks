@@ -31,3 +31,15 @@ export const fetchAPI = async (url, options = {}) => {
     throw error;
   }
 };
+
+export const ok = (data) => {
+  return Response.json({ data: data, ok: true, message: "SUCCESS" });
+};
+
+export const fail = (message) => {
+  return Response.json({
+    data: null,
+    ok: false,
+    message: message == null ? "FAIL" : message,
+  });
+};

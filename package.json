@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.0.10",
     "@supabase/supabase-js": "^2.39.0",
     "@vercel/postgres": "^0.5.1",
     "daisyui": "^4.4.2",

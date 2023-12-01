@@ -2,33 +2,27 @@ import { createOpenAI } from "@/utils/openai";
 
 const openai = createOpenAI();
 
-export async function createThread() {
-  return await openai.beta.threads.create();
-}
+export const createThread = async () => await openai.beta.threads.create();
 
-export async function deleteThread(thread_id) {
-  return await openai.beta.threads.del(thread_id);
-}
+export const deleteThread = async (thread_id) =>
+  await openai.beta.threads.del(thread_id);
 
-export async function createMessage(thread_id, content) {
-  return await openai.beta.threads.messages.create(thread_id, {
+export const createMessage = async (thread_id, content) =>
+  await openai.beta.threads.messages.create(thread_id, {
     role: "user",
     content: content,
   });
-}
 
-export async function listMessage(thread_id) {
-  return await openai.beta.threads.messages.list(thread_id);
-}
+export const listMessage = async (thread_id) =>
+  await openai.beta.threads.messages.list(thread_id);
 
-export async function run(thread_id, assistant_id) {
-  return await openai.beta.threads.runs.create(thread_id, {
+export const run = async (thread_id, assistant_id) =>
+  await openai.beta.threads.runs.create(thread_id, {
     assistant_id: assistant_id,
   });
-}
 
-export async function createThreadAndRun(assistant_id, content) {
-  return await openai.beta.threads.createAndRun({
+export const createThreadAndRun = async (assistant_id, content) =>
+  await openai.beta.threads.createAndRun({
     assistant_id: assistant_id,
     thread: {
       messages: [
@@ -37,27 +31,22 @@ export async function createThreadAndRun(assistant_id, content) {
       ],
     },
   });
-}
 
-export async function retrieveRun(thread_id, run_id) {
-  return await openai.beta.threads.runs.retrieve(thread_id, run_id);
-}
+export const retrieveRun = async (thread_id, run_id) =>
+  await openai.beta.threads.runs.retrieve(thread_id, run_id);
 
-export async function talk(assistant_id, content, callback) {
+export const talk = async (assistant_id, content, callback) => {
   const { id, thread_id } = await createThreadAndRun(assistant_id, content);
-  let messages;
   const intervalId = setInterval(async () => {
     const { status } = await retrieveRun(thread_id, id);
-    if (status == "completed") {
+    if (status === "completed") {
       clearInterval(intervalId);
       const messages = await listMessage(thread_id);
       const value = messages.data
-        .filter((message) => message.role == "assistant")
-        .map((message) => {
-          return message.content.map((item) => item.text.value).join();
-        })
+        .filter((message) => message.role === "assistant")
+        .map((message) => message.content.map((item) => item.text.value).join())
         .join();
       callback(value);
     }
   }, 3000);
-}
+};

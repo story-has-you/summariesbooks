@@ -1,11 +1,11 @@
 "use client";
 
-import LoginPage from "@/components/Login";
+import SignIn from "@/components/SignIn";
 
 export default () => {
   return (
     <>
-      <LoginPage />
+      <SignIn />
     </>
   );
 };

@@ -2,9 +2,21 @@
 
 import { BsGithub, BsTwitter } from "react-icons/bs";
 import Link from "next/link";
-import Producthunt from "../Producthunt";
+import { useEffect, useState } from "react";
+import { fetchAPI } from "@/utils/api";
 
 export default () => {
+  const [username, setUsername] = useState("");
+
+  const getCurrentUser = async () => {
+    const { data } = await fetchAPI("/api/auth/user");
+    setUsername(data);
+  };
+
+  useEffect(() => {
+    getCurrentUser();
+  }, []);
+
   return (
     <header className="mx-auto w-full max-w-7xl px-5 py-2 md:px-10 md:pt-4 lg:pt-8">
       <h1 className="text-3xl font-medium flex items-center">
@@ -53,6 +65,12 @@ export default () => {
             ></path>
           </svg>
         </a>
+
+        <div className="ml-5 avatar placeholder">
+          <div className="bg-neutral text-neutral-content rounded-full w-8">
+            <span className="text-xs">{username}</span>
+          </div>
+        </div>
       </h1>
     </header>
   );
