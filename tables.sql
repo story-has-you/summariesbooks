@@ -28,15 +28,13 @@ create table
   ) tablespace pg_default;
 
 create table users (
-    id uuid not null default gen_random_uuid (),
+    id uuid not null references auth.users on delete cascade,
     email character varying(255) not null,
     username character varying(50) not null,
-    password character varying(255) not null,
     is_member boolean not null default false,
     membership_start timestamp with time zone null,
     membership_end timestamp with time zone null,
     registration_date timestamp with time zone not null default current_timestamp,
     constraint users_pkey primary key (id),
-    constraint users_email_key unique (email),
-    constraint users_username_key unique (username)
+    constraint users_email_key unique (email)
   ) tablespace pg_default;

@@ -19,7 +19,5 @@ export async function POST(request) {
 const initUser = (username) => {
   return {
     username: username,
-    is_member: false,
-    registration_date: new Date(),
   };
 };
