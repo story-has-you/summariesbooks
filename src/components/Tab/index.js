@@ -26,9 +26,8 @@ const Tab = ({ book, assistant, initChating }) => {
     <div>
       <div className="tabs tabs-boxed">
         <a
-          className={`tab tab-bordered ${
-            activeTab === "summary" ? "bg-neutral text-white" : ""
-          }`}
+          className={`tab tab-bordered ${activeTab === "summary" ? "bg-neutral text-white" : ""
+            }`}
           onClick={() => setActiveTab("summary")}
         >
           Summary
@@ -40,30 +39,28 @@ const Tab = ({ book, assistant, initChating }) => {
         >
           Mind Map
         </a> */}
-        {/*
-          <a
-            className={`tab tab-bordered ${
-              initChating ? "bg-gray-300 text-gray-500 opacity-50" : ""
-            } ${
-              Object.keys(assistant).length > 0
-                ? activeTab === "chat"
-                  ? "bg-neutral text-white"
-                  : ""
-                : "bg-gray-300 text-gray-500 cursor-not-allowed opacity-50"
+
+        <a
+          className={`tab tab-bordered ${initChating ? "bg-gray-300 text-gray-500 opacity-50" : ""
+            } ${Object.keys(assistant).length > 0
+              ? activeTab === "chat"
+                ? "bg-neutral text-white"
+                : ""
+              : "bg-gray-300 text-gray-500 cursor-not-allowed opacity-50"
             }`}
-            onClick={() => {
-              if (Object.keys(assistant).length > 0 && !initChating) {
-                setActiveTab("chat");
-              }
-            }}
-          >
-            {Object.keys(assistant).length > 0
-              ? initChating
-                ? "Chat With Book Be Initializing..."
-                : "Chat With Book"
-              : "This book does not support chat"}
-          </a>
-            */}
+          onClick={() => {
+            if (Object.keys(assistant).length > 0 && !initChating) {
+              setActiveTab("chat");
+            }
+          }}
+        >
+          {Object.keys(assistant).length > 0
+            ? initChating
+              ? "Chat With Book Be Initializing..."
+              : "Chat With Book"
+            : "This book does not support chat"}
+        </a>
+
       </div>
 
       <div>

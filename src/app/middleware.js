@@ -1,10 +1,15 @@
 import { createClient } from "@/utils/supabase/middleware";
+import { NextResponse } from "next/server";
 
 export async function middleware(request) {
   try {
-    const { supabase, response } = createClient(request);
-    await supabase.auth.getSession();
-    return response;
+    console.log(request.nextUrl.pathname);
+    if (request.nextUrl.pathname.startsWith('/auth')) {
+      const { supabase, response } = createClient(request);
+      const session = await supabase.auth.getSession();
+      console.log(session);
+      return response;
+    }
   } catch (e) {
     return NextResponse.next({
       request: {
@@ -12,4 +17,8 @@ export async function middleware(request) {
       },
     });
   }
+}
+
+export const config = {
+  matcher: '/auth/:path*',
 }

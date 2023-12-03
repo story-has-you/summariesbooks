@@ -66,11 +66,11 @@ export default () => {
           </svg>
         </a>
 
-        <div className="ml-5 avatar placeholder">
+        {username && <div className="ml-5 avatar placeholder">
           <div className="bg-neutral text-neutral-content rounded-full w-8">
             <span className="text-xs">{username}</span>
           </div>
-        </div>
+        </div>}
       </h1>
     </header>
   );

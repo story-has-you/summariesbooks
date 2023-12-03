@@ -2,7 +2,7 @@ import { createOpenAI } from "@/utils/openai";
 
 const openai = createOpenAI();
 
-export const createThread = async () => await openai.beta.threads.create();
+export const createThread = async () => await openai.beta.threads.create()
 
 export const deleteThread = async (thread_id) =>
   await openai.beta.threads.del(thread_id);
