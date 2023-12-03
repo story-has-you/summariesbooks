@@ -17,11 +17,13 @@
     "markmap-common": "^0.15.3",
     "markmap-lib": "^0.15.4",
     "markmap-view": "^0.15.4",
+    "net": "^1.0.2",
     "next": "14.0.3",
     "openai": "^4.0.0",
     "react": "^18",
     "react-dom": "^18",
-    "react-icons": "^4.12.0"
+    "react-icons": "^4.12.0",
+    "tls": "^0.0.1"
   },
   "devDependencies": {
     "@types/react": "18.2.39",
