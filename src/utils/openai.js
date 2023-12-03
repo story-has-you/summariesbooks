@@ -14,19 +14,16 @@ export const createOpenAI = () => {
   });
 };
 
-export const talkAi = async (text, assistant, callback) => {
-  const thread_id = window.localStorage.getItem(
-    `thread_id_${assistant.book_id}`
-  );
-  if (!thread_id) {
+export const talkAi = async (text, assistant_id, thread_id, callback) => {
+  if (!thread_id || !assistant_id) {
     return;
   }
   const { data } = await fetchAPI("/api/assistant", {
     method: "POST",
     body: {
-      assistant_id: assistant.assistant_id,
-      thread_id: thread_id,
-      text: text,
+      assistant_id,
+      thread_id,
+      text,
     },
   });
   loopStatus(data.thread_id, data.run_id, callback);

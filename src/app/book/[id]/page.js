@@ -45,7 +45,11 @@ export default ({ params }) => {
       setAssistant(data);
       await createThread();
       const text = `Please parse the uploaded file and answer the question in the language of the questioner.`;
-      fetchPostAssistant(text, data);
+      const thread_id = window.localStorage.getItem(`thread_id_${params.id}`);
+      if (!thread_id) {
+        return;
+      }
+      talkAi(text, data.assistant_id, thread_id, (value) => setInitChating(false));
     } catch (error) {
       console.error("Error fetching assistant:", error);
     }
@@ -60,17 +64,6 @@ export default ({ params }) => {
     }
   };
 
-  const fetchPostAssistant = async (text, assistant) => {
-    const thread_id = window.localStorage.getItem(`thread_id_${params.id}`);
-    if (!thread_id) {
-      return;
-    }
-    try {
-      talkAi(text, assistant, (value) => setInitChating(false));
-    } catch (error) {
-      console.error("Error posting to assistant:", error);
-    }
-  };
 
   useEffect(() => {
     fetchBook();
