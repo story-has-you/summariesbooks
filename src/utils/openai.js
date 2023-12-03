@@ -2,15 +2,15 @@ import OpenAI from "openai";
 import { fetchAPI } from "./api";
 import { HttpsProxyAgent } from "https-proxy-agent";
 
-export const createOpenAI = () => {
+export const createOpenAI = (openai_key) => {
   if (process.env.NODE_ENV === "development") {
     return new OpenAI({
-      apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
+      apiKey: openai_key,
       httpAgent: new HttpsProxyAgent(process.env.NEXT_PUBLIC_HTTP_PROXY),
     });
   }
   return new OpenAI({
-    apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
+    apiKey: openai_key,
   });
 };
 

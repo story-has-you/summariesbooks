@@ -14,7 +14,8 @@ export default ({ messages, user_id, fetchCurrentUser }) => {
       body: { id: user_id, openai_key: encrypt(openaiKey) }
     })
     if (ok) {
-      fetchCurrentUser()
+      const user = await fetchCurrentUser()
+      console.log(user);
     }
   };
 

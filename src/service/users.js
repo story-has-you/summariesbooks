@@ -10,7 +10,8 @@ export const insert = async (user) => {
 }
 
 export const updateOpenaiKey = async (id, openai_key) => {
-  const supabase = supabaseClient();
+  const cookieStore = cookies()
+  const supabase = supabaseServer(cookieStore)
   const { data } = await supabase.from("users").update({ openai_key: { ...openai_key } }).eq("id", id).select();
   return data
 }
