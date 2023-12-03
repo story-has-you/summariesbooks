@@ -1,4 +1,5 @@
 import { getCurrentUser } from "@/service/auth";
+import { selectById, updateOpenaiKey } from "@/service/users";
 import { fail, ok } from "@/utils/api";
 
 export async function GET(request) {
@@ -6,5 +7,12 @@ export async function GET(request) {
   if (!user) {
     return fail();
   }
-  return ok(user.user_metadata.username);
+  const data = await selectById(user.id)
+  return ok(data);
+}
+
+export async function PUT(request) {
+  const { id, openai_key } = await request.json();
+  const { data } = await updateOpenaiKey(id, openai_key);
+  return ok(data)
 }

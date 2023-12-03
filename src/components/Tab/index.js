@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ChatBox from "../ChatWithBook";
 import Link from "next/link";
 import Mindmap from "../Mindmap";
+import { getCurrentUser } from "@/utils/util";
+import ChatContainer from "../ChatWithBook/ChatContainer";
+import InputKey from "./InputKey";
+import NeedSignIn from "./NeedSignIn";
 
 const now = () => {
   return new Date().toLocaleTimeString([], {
@@ -11,6 +15,8 @@ const now = () => {
 };
 
 const Tab = ({ book, assistant, initChating }) => {
+  const [user, setUser] = useState({});
+
   const [messages, setMessages] = useState([
     {
       sender: `${book.book_name}`, // 或实际的发送者名字
@@ -21,6 +27,38 @@ const Tab = ({ book, assistant, initChating }) => {
   ]);
 
   const [activeTab, setActiveTab] = useState("summary");
+
+
+  const showChat = () => {
+    if (activeTab != "chat") {
+      return
+    }
+    if (user && user.openai_key) {
+      return <div className="mt-5">
+        <ChatBox
+          book={book}
+          assistant={assistant}
+          messages={messages}
+          setMessages={setMessages}
+          now={now}
+        ></ChatBox>
+      </div>
+    } else if (user && !user.openai_key) {
+      return <div className="mt-5">
+        <InputKey messages={messages} user_id={user.id} fetchCurrentUser={fetchCurrentUser} />
+      </div>
+    }
+    return <NeedSignIn messages={messages} />
+  }
+
+  const fetchCurrentUser = async () => {
+    const user = await getCurrentUser()
+    setUser(user)
+  }
+
+  useEffect(() => {
+    fetchCurrentUser()
+  }, []);
 
   return (
     <div>
@@ -40,7 +78,7 @@ const Tab = ({ book, assistant, initChating }) => {
           Mind Map
         </a> */}
 
-        <a
+        {/* <a
           className={`tab tab-bordered ${initChating ? "bg-gray-300 text-gray-500 opacity-50" : ""
             } ${Object.keys(assistant).length > 0
               ? activeTab === "chat"
@@ -59,6 +97,16 @@ const Tab = ({ book, assistant, initChating }) => {
               ? "Chat With Book Be Initializing..."
               : "Chat With Book"
             : "This book does not support chat"}
+        </a> */}
+
+        <a
+          className={`tab tab-bordered ${activeTab === "chat" ? "bg-neutral text-white" : ""
+            }`}
+          onClick={() =>
+            setActiveTab("chat")
+          }
+        >
+          Chat With Book
         </a>
 
       </div>
@@ -88,17 +136,9 @@ const Tab = ({ book, assistant, initChating }) => {
           </div>
         )}
 
-        {activeTab === "chat" && (
-          <div className="mt-5">
-            <ChatBox
-              book={book}
-              assistant={assistant}
-              messages={messages}
-              setMessages={setMessages}
-              now={now}
-            ></ChatBox>
-          </div>
-        )}
+
+        {showChat()}
+
       </div>
     </div>
   );

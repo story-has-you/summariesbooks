@@ -5,7 +5,7 @@ export async function GET(request, context) {
   const { params } = context;
   const data = await selectOne(params.book_id);
   if (data) {
-    return ok(data[0]);
+    return ok(data);
   }
   return fail();
 }

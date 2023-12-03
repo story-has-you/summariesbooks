@@ -31,10 +31,8 @@ create table users (
     id uuid not null references auth.users on delete cascade,
     email character varying(255) not null,
     username character varying(50) not null,
-    is_member boolean not null default false,
-    membership_start timestamp with time zone null,
-    membership_end timestamp with time zone null,
     registration_date timestamp with time zone not null default current_timestamp,
+    openai_key character varying(255) null,
     constraint users_pkey primary key (id),
     constraint users_email_key unique (email)
   ) tablespace pg_default;

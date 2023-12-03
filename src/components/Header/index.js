@@ -4,17 +4,15 @@ import { BsGithub, BsTwitter } from "react-icons/bs";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { fetchAPI } from "@/utils/api";
+import { getCurrentUser } from "@/utils/util";
 
 export default () => {
-  const [username, setUsername] = useState("");
-
-  const getCurrentUser = async () => {
-    const { data } = await fetchAPI("/api/auth/user");
-    setUsername(data);
-  };
+  const [user, setUser] = useState({});
 
   useEffect(() => {
-    getCurrentUser();
+    getCurrentUser().then(user => {
+      setUser(user);
+    })
   }, []);
 
   return (
@@ -66,9 +64,9 @@ export default () => {
           </svg>
         </a>
 
-        {username && <div className="ml-5 avatar placeholder">
+        {user && <div className="ml-5 avatar placeholder">
           <div className="bg-neutral text-neutral-content rounded-full w-8">
-            <span className="text-xs">{username}</span>
+            <span className="text-xs">{user.username}</span>
           </div>
         </div>}
       </h1>

@@ -40,12 +40,22 @@ export const signOut = async () => {
 export const getCurrentUser = async () => {
   const cookieStore = cookies();
   const supabase = supabaseServer(cookieStore);
-  const { data } = await supabase.auth.getUser();
-  return data;
+  const { data, error } = await supabase.auth.getUser()
+  console.log(data);
+  return handleError(data, error);
 };
 
 export const exchangeCodeForSession = async (code) => {
   const cookieStore = cookies();
   const supabase = supabaseServer(cookieStore);
   await supabase.auth.exchangeCodeForSession(code);
+};
+
+
+export const getSession = async () => {
+  const cookieStore = cookies();
+  const supabase = supabaseServer(cookieStore);
+  const { data, error } = await supabase.auth.getSession()
+  console.log(data);
+  return handleError(data, error);
 };

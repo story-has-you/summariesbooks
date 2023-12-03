@@ -67,7 +67,7 @@ export default ({ params }) => {
 
   useEffect(() => {
     fetchBook();
-    fetchAssistant();
+    // fetchAssistant();
     return () => deleteThread();
   }, []);
   return (

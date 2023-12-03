@@ -4,7 +4,6 @@ import { exchangeCodeForSession } from "@/service/auth";
 export async function GET(request) {
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get("code");
-
   if (code) {
     await exchangeCodeForSession(code);
   }
