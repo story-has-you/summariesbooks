@@ -1,8 +1,10 @@
 import OpenAI from "openai";
 import { fetchAPI } from "./api";
 import { HttpsProxyAgent } from "https-proxy-agent";
+import Cookies from "js-cookie";
 
-export const createOpenAI = (openai_key) => {
+export const createOpenAI = () => {
+  const openai_key = Cookies.get("openai_key");
   if (process.env.NODE_ENV === "development") {
     return new OpenAI({
       apiKey: openai_key,

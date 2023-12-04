@@ -1,21 +1,24 @@
-import React, { useState } from 'react';
-import ChatContainer from '../ChatWithBook/ChatContainer';
-import { fetchAPI } from '@/utils/api';
-import { encrypt } from '@/utils/crypto';
+import React, { useState } from "react";
+import ChatContainer from "../ChatWithBook/ChatContainer";
+import { fetchAPI } from "@/utils/api";
+import { encrypt } from "@/utils/crypto";
+import { getCurrentUser } from "@/utils/util";
 
-export default ({ messages, user_id, fetchCurrentUser }) => {
-  const [openaiKey, setOpenaiKey] = useState('');
+export default ({ messages, user_id }) => {
+  const [openaiKey, setOpenaiKey] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     // 处理 OpenAI Key 提交逻辑
     const { ok } = await fetchAPI("/api/auth/user", {
       method: "PUT",
-      body: { id: user_id, openai_key: encrypt(openaiKey) }
-    })
+      body: {
+        id: user_id,
+        openai_key: encrypt(openaiKey),
+      },
+    });
     if (ok) {
-      const user = await fetchCurrentUser()
-      console.log(user);
+      await getCurrentUser();
     }
   };
 
@@ -29,7 +32,10 @@ export default ({ messages, user_id, fetchCurrentUser }) => {
 
           {/* 输入框和按钮居中 */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <form className="flex items-center p-4 bg-white shadow-md rounded-lg w-3/4" onSubmit={handleSubmit}>
+            <form
+              className="flex items-center p-4 bg-white shadow-md rounded-lg w-3/4"
+              onSubmit={handleSubmit}
+            >
               <input
                 type="text"
                 className="input input-bordered flex-1 mr-4"
@@ -47,4 +53,3 @@ export default ({ messages, user_id, fetchCurrentUser }) => {
     </>
   );
 };
-

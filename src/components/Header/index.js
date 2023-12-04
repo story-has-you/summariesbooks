@@ -1,20 +1,9 @@
 "use client";
-
 import { BsGithub, BsTwitter } from "react-icons/bs";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { fetchAPI } from "@/utils/api";
-import { getCurrentUser } from "@/utils/util";
+import User from "../User";
 
 export default () => {
-  const [user, setUser] = useState({});
-
-  useEffect(() => {
-    getCurrentUser().then(user => {
-      setUser(user);
-    })
-  }, []);
-
   return (
     <header className="mx-auto w-full max-w-7xl px-5 py-2 md:px-10 md:pt-4 lg:pt-8">
       <h1 className="text-3xl font-medium flex items-center">
@@ -64,11 +53,7 @@ export default () => {
           </svg>
         </a>
 
-        {user && <div className="ml-5 avatar placeholder">
-          <div className="bg-neutral text-neutral-content rounded-full w-8">
-            <span className="text-xs">{user.username}</span>
-          </div>
-        </div>}
+        <User></User>
       </h1>
     </header>
   );

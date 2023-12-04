@@ -28,44 +28,52 @@ const Tab = ({ book, assistant, initChating }) => {
 
   const [activeTab, setActiveTab] = useState("summary");
 
-
   const showChat = () => {
     if (activeTab != "chat") {
-      return
+      return;
     }
     if (user && user.openai_key) {
-      return <div className="mt-5">
-        <ChatBox
-          book={book}
-          assistant={assistant}
-          messages={messages}
-          setMessages={setMessages}
-          now={now}
-        ></ChatBox>
-      </div>
+      return (
+        <div className="mt-5">
+          <ChatBox
+            book={book}
+            assistant={assistant}
+            messages={messages}
+            setMessages={setMessages}
+            now={now}
+          ></ChatBox>
+        </div>
+      );
     } else if (user && !user.openai_key) {
-      return <div className="mt-5">
-        <InputKey messages={messages} user_id={user.id} fetchCurrentUser={fetchCurrentUser} />
-      </div>
+      return (
+        <div className="mt-5">
+          <InputKey
+            messages={messages}
+            user_id={user.id}
+            fetchCurrentUser={fetchCurrentUser}
+          />
+        </div>
+      );
     }
-    return <NeedSignIn messages={messages} />
-  }
+    return <NeedSignIn messages={messages} />;
+  };
 
   const fetchCurrentUser = async () => {
-    const user = await getCurrentUser()
-    setUser(user)
-  }
+    const user = await getCurrentUser();
+    setUser(user);
+  };
 
   useEffect(() => {
-    fetchCurrentUser()
+    fetchCurrentUser();
   }, []);
 
   return (
     <div>
       <div className="tabs tabs-boxed">
         <a
-          className={`tab tab-bordered ${activeTab === "summary" ? "bg-neutral text-white" : ""
-            }`}
+          className={`tab tab-bordered ${
+            activeTab === "summary" ? "bg-neutral text-white" : ""
+          }`}
           onClick={() => setActiveTab("summary")}
         >
           Summary
@@ -100,15 +108,13 @@ const Tab = ({ book, assistant, initChating }) => {
         </a> */}
 
         <a
-          className={`tab tab-bordered ${activeTab === "chat" ? "bg-neutral text-white" : ""
-            }`}
-          onClick={() =>
-            setActiveTab("chat")
-          }
+          className={`tab tab-bordered ${
+            activeTab === "chat" ? "bg-neutral text-white" : ""
+          }`}
+          onClick={() => setActiveTab("chat")}
         >
           Chat With Book
         </a>
-
       </div>
 
       <div>
@@ -136,9 +142,7 @@ const Tab = ({ book, assistant, initChating }) => {
           </div>
         )}
 
-
         {showChat()}
-
       </div>
     </div>
   );

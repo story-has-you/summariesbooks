@@ -40,7 +40,7 @@ export const signOut = async () => {
 export const getCurrentUser = async () => {
   const cookieStore = cookies();
   const supabase = supabaseServer(cookieStore);
-  const { data, error } = await supabase.auth.getUser()
+  const { data, error } = await supabase.auth.getUser();
   return handleError(data, error);
 };
 
@@ -50,10 +50,20 @@ export const exchangeCodeForSession = async (code) => {
   await supabase.auth.exchangeCodeForSession(code);
 };
 
-
 export const getSession = async () => {
   const cookieStore = cookies();
   const supabase = supabaseServer(cookieStore);
-  const { data, error } = await supabase.auth.getSession()
+  const { data, error } = await supabase.auth.getSession();
+  return handleError(data, error);
+};
+
+export const updateUser = async (openai_key) => {
+  const cookieStore = cookies();
+  const supabase = supabaseServer(cookieStore);
+  const { data, error } = await supabase.auth.updateUser({
+    data: {
+      openai_key: openai_key,
+    },
+  });
   return handleError(data, error);
 };

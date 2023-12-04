@@ -1,5 +1,4 @@
 import { fetchAPI } from "./api";
-
 export const handleError = (data, error) => {
   if (error) {
     throw error;
@@ -7,8 +6,10 @@ export const handleError = (data, error) => {
   return data;
 };
 
-
 export const getCurrentUser = async () => {
-  const { data } = await fetchAPI("/api/auth/user");
-  return data
+  const { data, ok } = await fetchAPI("/api/auth/user");
+  if (ok) {
+    return data;
+  }
+  return null;
 };

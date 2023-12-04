@@ -1,5 +1,7 @@
 // apiUtils.js
 
+import Cookies from "js-cookie";
+
 /**
  * Executes a fetch request to the specified URL with the given options.
  * @param {string} url - The URL to fetch.
@@ -8,7 +10,11 @@
  * @returns {Promise<any>} - The response data.
  */
 export const fetchAPI = async (url, options = {}) => {
-  const headers = { "Content-Type": "application/json" };
+  const openai_key = Cookies.get("openai_key");
+  const headers = {
+    "Content-Type": "application/json",
+    "openai-key": openai_key || "",
+  };
 
   const { method = "GET", body = null } = options;
 

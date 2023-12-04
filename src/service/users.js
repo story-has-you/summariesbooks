@@ -7,17 +7,27 @@ export const insert = async (user) => {
   const supabase = supabaseClient();
   const { data, error } = await supabase.from("users").insert([{ ...user }]);
   return handleError(data, error);
-}
+};
 
 export const updateOpenaiKey = async (id, openai_key) => {
-  const cookieStore = cookies()
-  const supabase = supabaseServer(cookieStore)
-  const { data } = await supabase.from("users").update({ openai_key: { ...openai_key } }).eq("id", id).select();
-  return data
-}
+  const cookieStore = cookies();
+  const supabase = supabaseServer(cookieStore);
+  const { data } = await supabase
+    .from("users")
+    .update({
+      openai_key: openai_key,
+    })
+    .eq("id", id)
+    .select();
+  return data;
+};
 
 export const selectById = async (id) => {
   const supabase = supabaseClient();
-  const { data, error } = await supabase.from("users").select().eq("id", id).single();
+  const { data, error } = await supabase
+    .from("users")
+    .select()
+    .eq("id", id)
+    .single();
   return handleError(data, error);
-}
+};

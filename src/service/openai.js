@@ -1,28 +1,36 @@
 import { createOpenAI } from "@/utils/openai";
 
-const openai = createOpenAI();
+export const createThread = async () => {
+  const openai = createOpenAI();
+  return await openai.beta.threads.create();
+};
 
-export const createThread = async () => await openai.beta.threads.create()
+export const deleteThread = async (thread_id) => {
+  const openai = createOpenAI();
+  return await openai.beta.threads.del(thread_id);
+};
 
-export const deleteThread = async (thread_id) =>
-  await openai.beta.threads.del(thread_id);
-
-export const createMessage = async (thread_id, content) =>
-  await openai.beta.threads.messages.create(thread_id, {
+export const createMessage = async (thread_id, content) => {
+  const openai = createOpenAI();
+  return await openai.beta.threads.messages.create(thread_id, {
     role: "user",
     content: content,
   });
+};
+export const listMessage = async (thread_id) => {
+  const openai = createOpenAI();
+  return await openai.beta.threads.messages.list(thread_id);
+};
 
-export const listMessage = async (thread_id) =>
-  await openai.beta.threads.messages.list(thread_id);
-
-export const run = async (thread_id, assistant_id) =>
-  await openai.beta.threads.runs.create(thread_id, {
+export const run = async (thread_id, assistant_id) => {
+  const openai = createOpenAI();
+  return await openai.beta.threads.runs.create(thread_id, {
     assistant_id: assistant_id,
   });
-
-export const createThreadAndRun = async (assistant_id, content) =>
-  await openai.beta.threads.createAndRun({
+};
+export const createThreadAndRun = async (assistant_id, content) => {
+  const openai = createOpenAI();
+  return await openai.beta.threads.createAndRun({
     assistant_id: assistant_id,
     thread: {
       messages: [
@@ -31,9 +39,12 @@ export const createThreadAndRun = async (assistant_id, content) =>
       ],
     },
   });
+};
 
-export const retrieveRun = async (thread_id, run_id) =>
-  await openai.beta.threads.runs.retrieve(thread_id, run_id);
+export const retrieveRun = async (thread_id, run_id) => {
+  const openai = createOpenAI();
+  return await openai.beta.threads.runs.retrieve(thread_id, run_id);
+};
 
 export const talk = async (assistant_id, content, callback) => {
   const { id, thread_id } = await createThreadAndRun(assistant_id, content);
