@@ -1,10 +1,10 @@
 import OpenAI from "openai";
 import { fetchAPI } from "./api";
 import { HttpsProxyAgent } from "https-proxy-agent";
-import Cookies from "js-cookie";
+import { decrypt } from "./crypto";
 
-export const createOpenAI = () => {
-  const openai_key = Cookies.get("openai_key");
+export const createOpenAI = (openai_key) => {
+  openai_key = decrypt(openai_key);
   if (process.env.NODE_ENV === "development") {
     return new OpenAI({
       apiKey: openai_key,
@@ -16,16 +16,19 @@ export const createOpenAI = () => {
   });
 };
 
-export const talkAi = async (text, assistant_id, thread_id, callback) => {
-  if (!thread_id || !assistant_id) {
+export const talkAi = async (text, assistant, callback) => {
+  const thread_id = window.localStorage.getItem(
+    `thread_id_${assistant.book_id}`
+  );
+  if (!thread_id) {
     return;
   }
   const { data } = await fetchAPI("/api/assistant", {
     method: "POST",
     body: {
-      assistant_id,
-      thread_id,
-      text,
+      assistant_id: assistant.assistant_id,
+      thread_id: thread_id,
+      text: text,
     },
   });
   loopStatus(data.thread_id, data.run_id, callback);

@@ -49,7 +49,9 @@ export default ({ params }) => {
       if (!thread_id) {
         return;
       }
-      talkAi(text, data.assistant_id, thread_id, (value) => setInitChating(false));
+      talkAi(text, data, (value) => {
+        setInitChating(false);
+      });
     } catch (error) {
       console.error("Error fetching assistant:", error);
     }
@@ -64,10 +66,9 @@ export default ({ params }) => {
     }
   };
 
-
   useEffect(() => {
     fetchBook();
-    // fetchAssistant();
+    fetchAssistant();
     return () => deleteThread();
   }, []);
   return (

@@ -3,7 +3,6 @@ import ChatBox from "../ChatWithBook";
 import Link from "next/link";
 import Mindmap from "../Mindmap";
 import { getCurrentUser } from "@/utils/util";
-import ChatContainer from "../ChatWithBook/ChatContainer";
 import InputKey from "./InputKey";
 import NeedSignIn from "./NeedSignIn";
 
@@ -86,14 +85,16 @@ const Tab = ({ book, assistant, initChating }) => {
           Mind Map
         </a> */}
 
-        {/* <a
-          className={`tab tab-bordered ${initChating ? "bg-gray-300 text-gray-500 opacity-50" : ""
-            } ${Object.keys(assistant).length > 0
+        <a
+          className={`tab tab-bordered ${
+            initChating ? "bg-gray-300 text-gray-500 opacity-50" : ""
+          } ${
+            Object.keys(assistant).length > 0
               ? activeTab === "chat"
                 ? "bg-neutral text-white"
                 : ""
               : "bg-gray-300 text-gray-500 cursor-not-allowed opacity-50"
-            }`}
+          }`}
           onClick={() => {
             if (Object.keys(assistant).length > 0 && !initChating) {
               setActiveTab("chat");
@@ -105,16 +106,16 @@ const Tab = ({ book, assistant, initChating }) => {
               ? "Chat With Book Be Initializing..."
               : "Chat With Book"
             : "This book does not support chat"}
-        </a> */}
+        </a>
 
-        <a
+        {/* <a
           className={`tab tab-bordered ${
             activeTab === "chat" ? "bg-neutral text-white" : ""
           }`}
           onClick={() => setActiveTab("chat")}
         >
           Chat With Book
-        </a>
+        </a> */}
       </div>
 
       <div>

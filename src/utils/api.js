@@ -1,5 +1,3 @@
-// apiUtils.js
-
 import Cookies from "js-cookie";
 
 /**
