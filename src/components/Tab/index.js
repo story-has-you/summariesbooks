@@ -88,7 +88,7 @@ const Tab = ({ book, assistant, initChating, openaiKeyStatus }) => {
           }}
           style={{ pointerEvents: initChating ? 'none' : 'auto' }}
         >
-          {initChating ? "Initializing..." : "Chat With Book"}
+          {initChating ? "Chat With Book Initializing..." : "Chat With Book"}
         </a>
 
         {/* <a
