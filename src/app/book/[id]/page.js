@@ -97,7 +97,6 @@ export default ({ params }) => {
         loading={loading}
         assistant={assistant}
         initChating={initChating}
-        openaiKeyStatus={openaiKeyStatus}
       ></Book>
     </>
   );
