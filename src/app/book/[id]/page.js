@@ -11,7 +11,6 @@ export default ({ params }) => {
   const [loading, setLoading] = useState(true);
   const [assistant, setAssistant] = useState({});
   const [initChating, setInitChating] = useState(true);
-  const [openaiKeyStatus, setOpenaiKeyStatus] = useState(false)
 
   const fetchBook = async () => {
     setLoading(true);
@@ -44,18 +43,17 @@ export default ({ params }) => {
     }
     const { openai_key } = user;
     if (!openai_key) {
-      setOpenaiKeyStatus(false)
       return false
     }
-    setOpenaiKeyStatus(true)
     return true
   }
 
   const initAi = async () => {
-    setInitChating(true);
-    if (!checkUserStatus()) {
+    if (!await checkUserStatus()) {
+      console.log("user not login");
       return;
     }
+    setInitChating(true);
     try {
       const { data } = await fetchAPI(`/api/assistant/${params.id}`);
       if (!data) {

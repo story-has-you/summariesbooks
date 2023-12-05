@@ -13,9 +13,8 @@ const now = () => {
   });
 };
 
-const Tab = ({ book, assistant, initChating, openaiKeyStatus }) => {
-  const [user, setUser] = useState({});
-
+const Tab = ({ book, assistant, initChating }) => {
+  const [user, setUser] = useState(null);
   const [messages, setMessages] = useState([
     {
       sender: `${book.book_name}`, // 或实际的发送者名字
@@ -24,8 +23,11 @@ const Tab = ({ book, assistant, initChating, openaiKeyStatus }) => {
       isReceived: true,
     },
   ]);
-
   const [activeTab, setActiveTab] = useState("summary");
+
+  const isChatActive = activeTab === "chat";
+  const isChatDisabled = user && initChating;
+  const chatTabClass = `tab tab-bordered ${isChatActive ? "bg-neutral text-white" : ""} ${isChatDisabled ? "cursor-not-allowed opacity-50" : ""}`;
 
   const showChat = () => {
     if (user && user.openai_key) {
@@ -58,6 +60,13 @@ const Tab = ({ book, assistant, initChating, openaiKeyStatus }) => {
     setUser(user);
   };
 
+  const handleChatClick = () => {
+    if (!isChatDisabled) {
+      setActiveTab("chat");
+    }
+  };
+
+
   useEffect(() => {
     fetchCurrentUser();
   }, []);
@@ -80,15 +89,11 @@ const Tab = ({ book, assistant, initChating, openaiKeyStatus }) => {
         </a> */}
 
         <a
-          className={`tab tab-bordered ${activeTab === "chat" ? "bg-neutral text-white" : ""} ${initChating ? "cursor-not-allowed opacity-50" : ""}`}
-          onClick={() => {
-            if (!initChating) {
-              setActiveTab("chat");
-            }
-          }}
-          style={{ pointerEvents: initChating ? 'none' : 'auto' }}
+          className={chatTabClass}
+          onClick={handleChatClick}
+          style={{ pointerEvents: isChatDisabled ? 'none' : 'auto' }}
         >
-          {initChating ? "Chat With Book Initializing..." : "Chat With Book"}
+          {user ? (initChating ? "Chat With Book Initializing..." : "Chat With Book") : "Chat With Book"}
         </a>
 
         {/* <a
