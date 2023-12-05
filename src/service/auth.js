@@ -35,6 +35,7 @@ export const signOut = async () => {
   const cookieStore = cookies();
   const supabase = supabaseServer(cookieStore);
   const { error } = await supabase.auth.signOut();
+  return error
 };
 
 export const getCurrentUser = async () => {

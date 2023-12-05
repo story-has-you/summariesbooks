@@ -18,7 +18,7 @@ export default ({ messages, user_id }) => {
       },
     });
     if (ok) {
-      await getCurrentUser();
+      window.location.reload();
     }
   };
 

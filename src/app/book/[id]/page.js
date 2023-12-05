@@ -3,6 +3,7 @@
 import Book from "@/components/Book";
 import { fetchAPI } from "@/utils/api";
 import { talkAi } from "@/utils/openai";
+import { getCurrentUser } from "@/utils/util";
 import { useEffect, useState } from "react";
 
 export default ({ params }) => {
@@ -10,6 +11,7 @@ export default ({ params }) => {
   const [loading, setLoading] = useState(true);
   const [assistant, setAssistant] = useState({});
   const [initChating, setInitChating] = useState(true);
+  const [openaiKeyStatus, setOpenaiKeyStatus] = useState(false)
 
   const fetchBook = async () => {
     setLoading(true);
@@ -35,8 +37,25 @@ export default ({ params }) => {
     }
   };
 
-  const fetchAssistant = async () => {
+  const checkUserStatus = async () => {
+    const user = await getCurrentUser();
+    if (!user) {
+      return false
+    }
+    const { openai_key } = user;
+    if (!openai_key) {
+      setOpenaiKeyStatus(false)
+      return false
+    }
+    setOpenaiKeyStatus(true)
+    return true
+  }
+
+  const initAi = async () => {
     setInitChating(true);
+    if (!checkUserStatus()) {
+      return;
+    }
     try {
       const { data } = await fetchAPI(`/api/assistant/${params.id}`);
       if (!data) {
@@ -68,7 +87,7 @@ export default ({ params }) => {
 
   useEffect(() => {
     fetchBook();
-    fetchAssistant();
+    initAi();
     return () => deleteThread();
   }, []);
   return (
@@ -78,6 +97,7 @@ export default ({ params }) => {
         loading={loading}
         assistant={assistant}
         initChating={initChating}
+        openaiKeyStatus={openaiKeyStatus}
       ></Book>
     </>
   );

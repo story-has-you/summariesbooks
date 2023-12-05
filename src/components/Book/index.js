@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Tab from "../Tab";
 
-export default ({ book, loading, assistant, initChating }) => {
+export default ({ book, loading, assistant, initChating, openaiKeyStatus }) => {
   return (
     <>
       <section>
@@ -76,6 +76,7 @@ export default ({ book, loading, assistant, initChating }) => {
                     book={book}
                     assistant={assistant}
                     initChating={initChating}
+                    openaiKeyStatus={openaiKeyStatus}
                   ></Tab>
                 </>
               )}

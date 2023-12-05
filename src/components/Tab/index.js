@@ -13,7 +13,7 @@ const now = () => {
   });
 };
 
-const Tab = ({ book, assistant, initChating }) => {
+const Tab = ({ book, assistant, initChating, openaiKeyStatus }) => {
   const [user, setUser] = useState({});
 
   const [messages, setMessages] = useState([
@@ -28,9 +28,6 @@ const Tab = ({ book, assistant, initChating }) => {
   const [activeTab, setActiveTab] = useState("summary");
 
   const showChat = () => {
-    if (activeTab != "chat") {
-      return;
-    }
     if (user && user.openai_key) {
       return (
         <div className="mt-5">
@@ -49,7 +46,6 @@ const Tab = ({ book, assistant, initChating }) => {
           <InputKey
             messages={messages}
             user_id={user.id}
-            fetchCurrentUser={fetchCurrentUser}
           />
         </div>
       );
@@ -70,9 +66,7 @@ const Tab = ({ book, assistant, initChating }) => {
     <div>
       <div className="tabs tabs-boxed">
         <a
-          className={`tab tab-bordered ${
-            activeTab === "summary" ? "bg-neutral text-white" : ""
-          }`}
+          className={`tab tab-bordered ${activeTab === "summary" ? "bg-neutral text-white" : ""}`}
           onClick={() => setActiveTab("summary")}
         >
           Summary
@@ -86,26 +80,15 @@ const Tab = ({ book, assistant, initChating }) => {
         </a> */}
 
         <a
-          className={`tab tab-bordered ${
-            initChating ? "bg-gray-300 text-gray-500 opacity-50" : ""
-          } ${
-            Object.keys(assistant).length > 0
-              ? activeTab === "chat"
-                ? "bg-neutral text-white"
-                : ""
-              : "bg-gray-300 text-gray-500 cursor-not-allowed opacity-50"
-          }`}
+          className={`tab tab-bordered ${activeTab === "chat" ? "bg-neutral text-white" : ""} ${initChating ? "cursor-not-allowed opacity-50" : ""}`}
           onClick={() => {
-            if (Object.keys(assistant).length > 0 && !initChating) {
+            if (!initChating) {
               setActiveTab("chat");
             }
           }}
+          style={{ pointerEvents: initChating ? 'none' : 'auto' }}
         >
-          {Object.keys(assistant).length > 0
-            ? initChating
-              ? "Chat With Book Be Initializing..."
-              : "Chat With Book"
-            : "This book does not support chat"}
+          {initChating ? "Initializing..." : "Chat With Book"}
         </a>
 
         {/* <a
@@ -143,7 +126,7 @@ const Tab = ({ book, assistant, initChating }) => {
           </div>
         )}
 
-        {showChat()}
+        {activeTab === "chat" && showChat()}
       </div>
     </div>
   );
