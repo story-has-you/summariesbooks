@@ -20,6 +20,7 @@ export default () => {
       return;
     }
     Cookies.set("openai_key", user.openai_key);
+    setOpenaiKey(decrypt(user.openai_key));
   };
 
   const onLogout = async () => {
@@ -46,9 +47,6 @@ export default () => {
 
   useEffect(() => {
     fetchCurrentUser();
-    if (user && user.openai_key) {
-      setOpenaiKey(decrypt(user.openai_key));
-    }
   }, []);
 
   return (
