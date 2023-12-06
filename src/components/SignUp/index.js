@@ -106,7 +106,7 @@ export default () => {
 
                   {/* 登录按钮 */}
                   <div className="form-control mt-4">
-                    <button type="submit" className="btn btn-primary">
+                    <button type="submit" className="btn btn-neutral">
                       Register
                     </button>
                   </div>

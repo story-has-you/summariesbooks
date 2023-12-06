@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import ChatContainer from "../ChatWithBook/ChatContainer";
 import { fetchAPI } from "@/utils/api";
 import { encrypt } from "@/utils/crypto";
-import { getCurrentUser } from "@/utils/util";
 
 export default ({ messages, user_id }) => {
   const [openaiKey, setOpenaiKey] = useState("");

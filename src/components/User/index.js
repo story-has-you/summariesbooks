@@ -4,10 +4,12 @@ import { getCurrentUser } from "@/utils/util";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import { fetchAPI } from "@/utils/api";
+import { decrypt, encrypt } from "@/utils/crypto";
 
 export default () => {
   const [user, setUser] = useState(null);
-
+  const [openaiKey, setOpenaiKey] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const fetchCurrentUser = async () => {
     const user = await getCurrentUser();
     if (!user) {
@@ -30,8 +32,23 @@ export default () => {
     }
   }
 
+  const toggleModal = () => setIsModalOpen(!isModalOpen);
+  const handleSubmit = async () => {
+    toggleModal();
+    const { ok } = await fetchAPI("/api/auth/user", {
+      method: "PUT",
+      body: {
+        id: user.id,
+        openai_key: encrypt(openaiKey),
+      },
+    });
+  };
+
   useEffect(() => {
     fetchCurrentUser();
+    if (user && user.openai_key) {
+      setOpenaiKey(decrypt(user.openai_key));
+    }
   }, []);
 
   return (
@@ -39,13 +56,18 @@ export default () => {
       <div className="ml-5">
         {user ? (
           <div className="avatar online placeholder dropdown dropdown-hover">
-            <div className="bg-neutral text-neutral-content rounded-full w-12">
+            <div className="bg-neutral text-neutral-content rounded-full w-10">
               <span className="text-xl">{user.username.length > 2 ? user.username.substring(0, 2) : user.username}</span>
             </div>
-            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40">
               <li>
                 <a href="#" className="justify-between" onClick={onLogout}>
                   Sign Out
+                </a>
+              </li>
+              <li>
+                <a href="#" className="justify-between" onClick={toggleModal}>
+                  OpenAi Key
                 </a>
               </li>
             </ul>
@@ -57,6 +79,29 @@ export default () => {
           </Link>
         )}
       </div>
+
+      {isModalOpen && (
+        <div className="modal modal-open">
+          <div className="modal-box w-1/2 max-w-2xl">
+            <h3 className="font-bold text-lg">Enter OpenAI Key</h3>
+            <input
+              type="text"
+              placeholder="Input your openai key, We will store it encrypted"
+              className="input input-bordered w-full mt-4"
+              value={openaiKey}
+              onChange={(e) => setOpenaiKey(e.target.value)}
+            />
+            <div className="modal-action">
+              <button className="btn btn-neutral" onClick={handleSubmit}>
+                Submit
+              </button>
+              <button className="btn" onClick={toggleModal}>
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
