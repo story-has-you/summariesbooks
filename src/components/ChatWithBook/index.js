@@ -2,9 +2,9 @@ import { useState } from "react";
 import ChatContainer from "./ChatContainer";
 import { talkAi } from "@/utils/openai";
 
-const ChatBox = ({ book, assistant, messages, setMessages, now }) => {
+const ChatBox = ({ book, assistant, messages, setMessages, now, initChating }) => {
   const [inputText, setInputText] = useState("");
-  const [sending, setSending] = useState(false);
+  const [sending, setSending] = useState(initChating);
 
   const handleClear = () => {
     setMessages([]);

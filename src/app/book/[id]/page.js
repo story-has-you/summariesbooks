@@ -23,13 +23,13 @@ export default ({ params }) => {
     setLoading(false);
   };
 
-  const deleteThread = async () => {
+  const deleteThread = () => {
     const thread_id = window.localStorage.getItem(`thread_id_${book.id}`);
     if (!thread_id) {
       return;
     }
     try {
-      await fetchAPI(`/api/thread/${thread_id}`, "DELETE");
+      fetchAPI(`/api/thread/${thread_id}`, { method: "DELETE" });
       window.localStorage.removeItem(`thread_id_${book.id}`);
     } catch (error) {
       console.error("Error deleting thread:", error);
@@ -71,6 +71,7 @@ export default ({ params }) => {
       });
     } catch (error) {
       console.error("Error fetching assistant:", error);
+      setInitChating(false);
     }
   };
 

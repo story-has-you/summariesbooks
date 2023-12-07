@@ -31,3 +31,13 @@ export const selectById = async (id) => {
     .single();
   return handleError(data, error);
 };
+
+export const selectByEmail = async (email) => {
+  const supabase = supabaseClient();
+  const { count, error } = await supabase
+    .from("users")
+    .select("*", { count: 'exact', head: true })
+    .eq("email", email)
+  return handleError(count, error);
+};
+

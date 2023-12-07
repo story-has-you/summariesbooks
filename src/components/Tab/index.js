@@ -39,6 +39,7 @@ const Tab = ({ book, assistant, initChating }) => {
             messages={messages}
             setMessages={setMessages}
             now={now}
+            initChating={initChating}
           ></ChatBox>
         </div>
       );
