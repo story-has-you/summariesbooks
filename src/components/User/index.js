@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { getCurrentUser } from "@/utils/util";
 import Cookies from "js-cookie";
 import Link from "next/link";
-import { fetchAPI } from "@/utils/api";
+import { request } from "@/utils/api";
 import { decrypt, encrypt } from "@/utils/crypto";
 
 export default () => {
@@ -24,7 +24,7 @@ export default () => {
   };
 
   const onLogout = async () => {
-    const { ok } = await fetchAPI("/api/auth/signout", {
+    const { ok } = await request("/api/auth/signout", {
       method: "POST",
     });
     if (ok) {
@@ -36,7 +36,7 @@ export default () => {
   const toggleModal = () => setIsModalOpen(!isModalOpen);
   const handleSubmit = async () => {
     toggleModal();
-    const { ok } = await fetchAPI("/api/auth/user", {
+    const { ok } = await request("/api/auth/user", {
       method: "PUT",
       body: {
         id: user.id,

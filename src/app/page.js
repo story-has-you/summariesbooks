@@ -5,7 +5,7 @@ import Search from "@/components/Search";
 import Skeleton from "@/components/Skeleton";
 import Bookshelf from "@/components/Bookshelf";
 import { useEffect, useState } from "react";
-import { fetchAPI } from "@/utils/api";
+import { request } from "@/utils/api";
 import Header from "@/components/Header";
 import Brand from "@/components/Brand";
 import Footer from "@/components/Footer";
@@ -17,7 +17,7 @@ export default function Home() {
   const fetchBookList = async () => {
     setLoading(true);
 
-    const { data } = await fetchAPI("/api/books");
+    const { data } = await request("/api/books");
     setBooks(data);
     setLoading(false);
   };

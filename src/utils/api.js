@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
  * @param {Object} [body=null] - The body of the request, for methods like POST.
  * @returns {Promise<any>} - The response data.
  */
-export const fetchAPI = async (url, options = {}) => {
+export const request = async (url, options = {}) => {
   const openai_key = Cookies.get("openai_key");
   const headers = {
     "Content-Type": "application/json",

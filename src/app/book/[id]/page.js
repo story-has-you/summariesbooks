@@ -1,7 +1,7 @@
 "use client";
 
 import Book from "@/components/Book";
-import { fetchAPI } from "@/utils/api";
+import { request } from "@/utils/api";
 import { talkAi } from "@/utils/openai";
 import { getCurrentUser } from "@/utils/util";
 import { useEffect, useState } from "react";
@@ -15,7 +15,7 @@ export default ({ params }) => {
   const fetchBook = async () => {
     setLoading(true);
     try {
-      const { data } = await fetchAPI(`/api/book/${params.id}`);
+      const { data } = await request(`/api/book/${params.id}`);
       setBook(data);
     } catch (error) {
       console.error("Error fetching book:", error);
@@ -29,7 +29,7 @@ export default ({ params }) => {
       return;
     }
     try {
-      fetchAPI(`/api/thread/${thread_id}`, { method: "DELETE" });
+      request(`/api/thread/${thread_id}`, { method: "DELETE" });
       window.localStorage.removeItem(`thread_id_${book.id}`);
     } catch (error) {
       console.error("Error deleting thread:", error);
@@ -55,7 +55,7 @@ export default ({ params }) => {
     }
     setInitChating(true);
     try {
-      const { data } = await fetchAPI(`/api/assistant/${params.id}`);
+      const { data } = await request(`/api/assistant/${params.id}`);
       if (!data) {
         return;
       }
@@ -77,7 +77,7 @@ export default ({ params }) => {
 
   const createThread = async () => {
     try {
-      const { data } = await fetchAPI("/api/thread", { method: "POST" });
+      const { data } = await request("/api/thread", { method: "POST" });
       window.localStorage.setItem(`thread_id_${params.id}`, data);
     } catch (error) {
       console.error("Error creating thread:", error);

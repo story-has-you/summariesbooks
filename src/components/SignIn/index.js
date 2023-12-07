@@ -1,4 +1,4 @@
-import { fetchAPI } from "@/utils/api";
+import { request } from "@/utils/api";
 import React, { useRef, useState } from "react";
 import Alert from "../Alert";
 import { useRouter } from "next/navigation";
@@ -20,7 +20,7 @@ export default () => {
       return;
     }
     // 在这里添加您的登录逻辑
-    const { data, ok, message } = await fetchAPI("/api/auth/signin", {
+    const { data, ok, message } = await request("/api/auth/signin", {
       method: "POST",
       body: { email, password },
     });

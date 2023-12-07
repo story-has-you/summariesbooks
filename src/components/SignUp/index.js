@@ -1,4 +1,4 @@
-import { fetchAPI } from "@/utils/api";
+import { request } from "@/utils/api";
 import React, { useRef, useState } from "react";
 import Alert from "../Alert";
 import SignImage from "../SignImage";
@@ -19,7 +19,7 @@ export default () => {
       return;
     }
     // 在这里添加您的登录逻辑
-    const { data, ok, message } = await fetchAPI("/api/auth/signup", {
+    const { data, ok, message } = await request("/api/auth/signup", {
       method: "POST",
       body: { email, password, username },
     });
