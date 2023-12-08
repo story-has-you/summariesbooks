@@ -26,7 +26,7 @@ export default function Home() {
     fetchBookList();
   }, []);
   return (
-    <main className="bg-orange-50">
+    <main>
       <Header />
       <Brand />
       <Producthunt />

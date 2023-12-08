@@ -36,7 +36,7 @@ export default () => {
     return (
       <>
         {/* 登录表单部分 */}
-        <div className="flex flex-1 flex-col items-center justify-center p-4">
+        <div className="flex flex-1 flex-col items-center justify-center p-4 bg-orange-50">
           {/* 网页标题 */}
           <h1 className="text-4xl font-bold mb-8">Book Summarize</h1>
 
