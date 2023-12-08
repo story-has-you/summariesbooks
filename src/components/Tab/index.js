@@ -60,20 +60,13 @@ const Tab = ({ book, assistant, initChating }) => {
     setUser(user);
   };
 
-  const handleChatClick = () => {
-    if (!isChatDisabled) {
-      setActiveTab("chat");
-    }
-  };
-
-
   useEffect(() => {
     fetchCurrentUser();
   }, []);
 
   return (
     <div>
-      <div className="tabs tabs-boxed">
+      <div className="tabs tabs-boxed bg-orange-100">
         <a
           className={`tab tab-bordered ${activeTab === "summary" ? "bg-neutral text-white" : ""}`}
           onClick={() => setActiveTab("summary")}
@@ -81,22 +74,21 @@ const Tab = ({ book, assistant, initChating }) => {
           Summary
         </a>
 
-        <a
+        {/* <a
           className={chatTabClass}
           onClick={handleChatClick}
           style={{ pointerEvents: isChatDisabled ? 'none' : 'auto' }}
         >
           {user ? (initChating ? "Chat With Book Initializing..." : "Chat With Book") : "Chat With Book"}
-        </a>
+        </a> */}
 
-        {/* <a
-          className={`tab tab-bordered ${
-            activeTab === "chat" ? "bg-neutral text-white" : ""
-          }`}
+        <a
+          className={`tab tab-bordered ${activeTab === "chat" ? "bg-neutral text-white" : ""
+            }`}
           onClick={() => setActiveTab("chat")}
         >
           Chat With Book
-        </a> */}
+        </a>
       </div>
 
       <div>
