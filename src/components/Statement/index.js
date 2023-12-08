@@ -9,6 +9,10 @@ export default () => {
             and mind map so you can quickly discover great books to read online
             or buy at Amazon
           </p>
+          <p className="text-base text-left mt-5">
+            About Chat With Book, After logging in, you can chat with the book function, and you can use the book as a robot to ask him any questions about the book.
+            The default model is gpt-3.5-turbo-1106
+          </p>
         </div>
         <div className="divider"></div>
         <div className="grid card rounded-box">

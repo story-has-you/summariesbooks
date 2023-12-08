@@ -89,13 +89,13 @@ const Tab = ({ book, assistant, initChating }) => {
           Mind Map
         </a> */}
 
-        <a
+        {assistant.id && <a
           className={chatTabClass}
           onClick={handleChatClick}
           style={{ pointerEvents: isChatDisabled ? 'none' : 'auto' }}
         >
           {user ? (initChating ? "Chat With Book Initializing..." : "Chat With Book") : "Chat With Book"}
-        </a>
+        </a>}
 
         {/* <a
           className={`tab tab-bordered ${
