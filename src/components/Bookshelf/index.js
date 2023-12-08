@@ -14,7 +14,7 @@ export default ({ books }) => {
                   target="_blank"
                   title={`View summary: ${book.book_name}`}
                 >
-                  <div className="book">
+                  <div className="book shadow-2xl">
                     <div
                       style={{ backgroundImage: `url(${book.cover_url})` }}
                       className={`book-cover book-inner bg-rose-400 w-36 h-52`}
@@ -45,7 +45,6 @@ export default ({ books }) => {
           margin-top: 48px;
           position: relative;
           cursor: pointer;
-          box-shadow: inset 4px 0 10px rgba(0, 0, 0, 0.1);
           border-radius: 0 3px 3px 0;
           perspective: 1000px;
         }
