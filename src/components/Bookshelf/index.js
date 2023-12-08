@@ -10,7 +10,7 @@ export default ({ books }) => {
               return (
                 <Link
                   key={`${book.id}`}
-                  href={`/book/${book.id}`}
+                  href={`/${book.book_name.replace(/ /g, '-')}/${book.id}`}
                   target="_blank"
                   title={`View summary: ${book.book_name}`}
                 >

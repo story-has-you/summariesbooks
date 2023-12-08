@@ -6,9 +6,9 @@ import User from "../User";
 export default () => {
   return (
     <header className="mx-auto w-full max-w-7xl px-5 py-2 md:px-10 md:pt-4 lg:pt-8">
-      <h1 className="text-3xl font-medium flex items-center">
+      <div className="text-3xl font-medium flex items-center">
         <Link href={"/"}>
-          <p className="text-3xl">Book Summarize</p>
+          <p className="text-3xl">SummariesBooks</p>
         </Link>
         <div className="flex-1">
           <ul className="hidden md:flex float-right text-lg text-slate-700 mr-4 items-center">
@@ -54,7 +54,7 @@ export default () => {
         </a>
 
         <User></User>
-      </h1>
+      </div>
     </header>
   );
 };
