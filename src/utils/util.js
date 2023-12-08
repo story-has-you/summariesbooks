@@ -1,4 +1,4 @@
-import { fetchAPI } from "./api";
+import { request } from "./api";
 
 export const handleError = (data, error) => {
   if (error) {
@@ -9,7 +9,7 @@ export const handleError = (data, error) => {
 
 export const getCurrentUser = async () => {
   try {
-    const { data, ok } = await fetchAPI("/api/auth/user");
+    const { data, ok } = await request("/api/auth/user");
     if (ok) {
       return data;
     }

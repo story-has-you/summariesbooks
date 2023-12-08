@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ChatContainer from "../ChatWithBook/ChatContainer";
-import { fetchAPI } from "@/utils/api";
+import { request } from "@/utils/api";
 import { encrypt } from "@/utils/crypto";
 
 export default ({ messages, user_id }) => {
@@ -9,7 +9,7 @@ export default ({ messages, user_id }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // 处理 OpenAI Key 提交逻辑
-    const { ok } = await fetchAPI("/api/auth/user", {
+    const { ok } = await request("/api/auth/user", {
       method: "PUT",
       body: {
         id: user_id,

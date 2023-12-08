@@ -1,5 +1,5 @@
 import OpenAI from "openai";
-import { fetchAPI } from "./api";
+import { request } from "./api";
 import { HttpsProxyAgent } from "https-proxy-agent";
 import { decrypt } from "./crypto";
 
@@ -23,7 +23,7 @@ export const talkAi = async (text, assistant, callback) => {
   if (!thread_id) {
     return;
   }
-  const { data } = await fetchAPI("/api/assistant", {
+  const { data } = await request("/api/assistant", {
     method: "POST",
     body: {
       assistant_id: assistant.assistant_id,
@@ -49,7 +49,7 @@ const loopStatus = (thread_id, run_id, callback) => {
 
 const fatchRetrieveRun = async (thread_id, run_id) => {
   try {
-    const { data } = await fetchAPI("/api/assistant/retrieve_run", {
+    const { data } = await request("/api/assistant/retrieve_run", {
       method: "POST",
       body: { thread_id, run_id },
     });
@@ -61,7 +61,7 @@ const fatchRetrieveRun = async (thread_id, run_id) => {
 };
 
 const fatchMessages = async (thread_id) => {
-  const { data } = await fetchAPI("/api/assistant/message", {
+  const { data } = await request("/api/assistant/message", {
     method: "POST",
     body: { thread_id },
   });
