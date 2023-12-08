@@ -19,7 +19,7 @@ export default ({ setBooks, setLoading }) => {
   }
 
   const requestBody = {
-    keywords: keywords
+    keywords: keywords.trim()
   }
 
   const handleSearch = async () => {
