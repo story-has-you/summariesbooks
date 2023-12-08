@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ChatBox from "../ChatWithBook";
 import Link from "next/link";
-import Mindmap from "../Mindmap";
 import { getCurrentUser } from "@/utils/util";
 import InputKey from "./InputKey";
 import NeedSignIn from "./NeedSignIn";
@@ -81,21 +80,14 @@ const Tab = ({ book, assistant, initChating }) => {
         >
           Summary
         </a>
-        {/* <a
-          className={`tab tab-bordered ${activeTab === "mindmap" ? "bg-neutral text-white" : ""
-            }`}
-          onClick={() => setActiveTab("mindmap")}
-        >
-          Mind Map
-        </a> */}
 
-        {assistant.id && <a
+        <a
           className={chatTabClass}
           onClick={handleChatClick}
           style={{ pointerEvents: isChatDisabled ? 'none' : 'auto' }}
         >
           {user ? (initChating ? "Chat With Book Initializing..." : "Chat With Book") : "Chat With Book"}
-        </a>}
+        </a>
 
         {/* <a
           className={`tab tab-bordered ${
@@ -110,7 +102,7 @@ const Tab = ({ book, assistant, initChating }) => {
       <div>
         {activeTab === "summary" && (
           <>
-            <div className="flex justify-center px-4 py-16 bg-base-200 mt-5 rounded-lg">
+            <div className="flex justify-center px-4 py-16 bg-orange-100 mt-5 rounded-lg ">
               <p className="font-sans text-lg">{book.summary}</p>
             </div>
             <p>
@@ -124,12 +116,6 @@ const Tab = ({ book, assistant, initChating }) => {
               </Link>
             </p>
           </>
-        )}
-
-        {activeTab === "mindmap" && (
-          <div className="mt-5">
-            <Mindmap markdown={book.markdown}></Mindmap>
-          </div>
         )}
 
         {activeTab === "chat" && showChat()}

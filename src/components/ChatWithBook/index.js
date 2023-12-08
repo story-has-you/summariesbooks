@@ -50,7 +50,7 @@ const ChatBox = ({ book, assistant, messages, setMessages, now, initChating }) =
   };
 
   return (
-    <div className="flex flex-col h-[75vh] md:h-[750px] border border-gray-300 rounded-lg">
+    <div className="flex flex-col h-[70vh] md:h-[700px] border border-gray-300 rounded-lg">
       <div className="flex-grow overflow-auto p-4">
         <ChatContainer messages={messages} sending={sending} />
       </div>

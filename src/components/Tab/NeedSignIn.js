@@ -3,7 +3,7 @@ import ChatContainer from '../ChatWithBook/ChatContainer';
 export default ({ messages }) => {
   return (
     <>
-      <div className="flex flex-col h-[75vh] md:h-[750px] border border-gray-300 rounded-lg">
+      <div className="flex flex-col h-[70vh] md:h-[700px] border bg-orange-50 rounded-lg mt-5">
         <div className="flex-grow overflow-auto p-4 relative">
           <ChatContainer messages={messages} sending={false} />
 
