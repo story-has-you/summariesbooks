@@ -43,6 +43,7 @@ export default ({ params }) => {
     }
     const { openai_key } = user;
     if (!openai_key) {
+      setInitChating(false);
       return false
     }
     return true
