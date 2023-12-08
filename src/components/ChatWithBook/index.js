@@ -50,11 +50,11 @@ const ChatBox = ({ book, assistant, messages, setMessages, now, initChating }) =
   };
 
   return (
-    <div className="flex flex-col h-[70vh] md:h-[700px] border bg-orange-50 rounded-lg">
+    <div className="flex flex-col h-[70vh] md:h-[700px] border custom-orange-50 rounded-lg">
       <div className="flex-grow overflow-auto p-4">
         <ChatContainer messages={messages} sending={sending} />
       </div>
-      <div className="flex p-4 bg-orange-100">
+      <div className="flex p-4 custom-orange-100">
         <input
           type="text"
           value={inputText}
@@ -65,7 +65,7 @@ const ChatBox = ({ book, assistant, messages, setMessages, now, initChating }) =
               handleSend();
             }
           }}
-          className="flex-grow p-2 border bg-orange-50 rounded mr-2"
+          className="flex-grow p-2 border custom-orange-50 rounded mr-2"
           placeholder="Type a message and press Enter to send"
         />
         <button onClick={handleClear} className={`btn btn-neutral ml-2`}>

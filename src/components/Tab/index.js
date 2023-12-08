@@ -55,6 +55,12 @@ const Tab = ({ book, assistant, initChating }) => {
     return <NeedSignIn messages={messages} />;
   };
 
+  const handleChatClick = () => {
+    if (!isChatDisabled) {
+      setActiveTab("chat");
+    }
+  };
+
   const fetchCurrentUser = async () => {
     const user = await getCurrentUser();
     setUser(user);
@@ -66,7 +72,7 @@ const Tab = ({ book, assistant, initChating }) => {
 
   return (
     <div>
-      <div className="tabs tabs-boxed bg-orange-100">
+      <div className="tabs tabs-boxed custom-orange-100">
         <a
           className={`tab tab-bordered ${activeTab === "summary" ? "bg-neutral text-white" : ""}`}
           onClick={() => setActiveTab("summary")}
@@ -94,7 +100,7 @@ const Tab = ({ book, assistant, initChating }) => {
       <div>
         {activeTab === "summary" && (
           <>
-            <div className="flex justify-center px-4 py-16 bg-orange-100 mt-5 rounded-lg ">
+            <div className="flex justify-center px-4 py-16 custom-orange-100 mt-5 rounded-lg ">
               <p className="font-sans text-lg">{book.summary}</p>
             </div>
             <p>

@@ -57,7 +57,7 @@ export default () => {
             <div className="bg-neutral text-neutral-content rounded-full w-10">
               <span className="text-xl">{user.username.length > 2 ? user.username.substring(0, 2) : user.username}</span>
             </div>
-            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-orange-50 rounded-box w-40">
+            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow custom-orange-50 rounded-box w-40">
               <li>
                 <a href="#" className="justify-between" onClick={onLogout}>
                   Sign Out
@@ -80,12 +80,12 @@ export default () => {
 
       {isModalOpen && (
         <div className="modal modal-open">
-          <div className="modal-box w-1/2 max-w-2xl bg-orange-50">
+          <div className="modal-box w-1/2 max-w-2xl custom-orange-50">
             <h3 className="font-bold text-lg">Enter OpenAI Key</h3>
             <input
               type="text"
               placeholder="Input your openai key, We will store it encrypted"
-              className="input input-bordered w-full mt-4 bg-orange-50"
+              className="input input-bordered w-full mt-4 custom-orange-50"
               value={openaiKey}
               onChange={(e) => setOpenaiKey(e.target.value)}
             />
@@ -93,7 +93,7 @@ export default () => {
               <button className="btn btn-neutral" onClick={handleSubmit}>
                 Submit
               </button>
-              <button className="btn bg-orange-50" onClick={toggleModal}>
+              <button className="btn custom-orange-50" onClick={toggleModal}>
                 Close
               </button>
             </div>

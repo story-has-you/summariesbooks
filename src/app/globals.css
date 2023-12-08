@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@media (prefers-color-scheme: light) {
+  body {
+    background-color: #fff7ed; /* 这是 custom-orange-50 的颜色值 */
+  }
+  .custom-orange-50 {
+    background-color: #fff7ed; /* 这是 custom-orange-50 的颜色值 */
+  }
+  .custom-orange-100 {
+    background-color: #ffedd5; /* 这是 custom-orange-100 的颜色值 */
+  }
+}

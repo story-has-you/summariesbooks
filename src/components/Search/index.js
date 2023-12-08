@@ -40,7 +40,7 @@ export default ({ setBooks, setLoading }) => {
           <input
             ref={inputRef}
             value={keywords}
-            className="form-input mt-1 block w-[600px] p-2 border rounded-lg input-bordered input-primary bg-orange-50"
+            className="form-input mt-1 block w-[600px] p-2 border rounded-lg input-bordered input-primary custom-orange-50"
             placeholder="Enter a book name..."
             onKeyDown={handleEnter}
             onChange={handleInputChange}
