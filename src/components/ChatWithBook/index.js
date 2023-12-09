@@ -69,14 +69,14 @@ const ChatBox = ({ book, assistant, messages, setMessages, now, initChating }) =
           placeholder="Type a message and press Enter to send"
         />
         <button onClick={handleClear} className={`btn btn-neutral ml-2`}>
-          清空
+          Clear
         </button>
         <button
           onClick={handleSend}
           className={`btn btn-neutral ml-2 ${sending ? "btn-disabled" : ""}`}
           disabled={sending}
         >
-          发送
+          send
         </button>
       </div>
     </div>
