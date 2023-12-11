@@ -2,9 +2,19 @@ import React, { useState } from "react";
 import ChatContainer from "../ChatWithBook/ChatContainer";
 import { request } from "@/utils/api";
 import { encrypt } from "@/utils/crypto";
+import Cookies from "js-cookie";
 
 export default ({ messages, user_id }) => {
   const [openaiKey, setOpenaiKey] = useState("");
+  const [isValidKey, setIsValidKey] = useState(true);
+
+  const handleKeyChange = (e) => {
+    const key = e.target.value;
+    const keyRegex = /^sk-[a-zA-Z0-9]+$/;
+
+    setIsValidKey(key === '' || keyRegex.test(key));
+    setOpenaiKey(key);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,6 +28,7 @@ export default ({ messages, user_id }) => {
     });
     if (ok) {
       window.location.reload();
+      Cookies.remove("current_user");
     }
   };
 
@@ -28,21 +39,20 @@ export default ({ messages, user_id }) => {
           <ChatContainer messages={messages} sending={false} />
           {/* 高斯模糊背景 */}
           <div className="absolute inset-0 backdrop-blur-sm bg-white/30" />
-
           {/* 输入框和按钮居中 */}
           <div className="absolute inset-0 flex items-center justify-center">
             <form
-              className="flex items-center p-4 bg-white shadow-md rounded-lg w-3/4"
+              className="flex items-center p-4 bg-orange-50 shadow-md rounded-lg w-3/4"
               onSubmit={handleSubmit}
             >
               <input
                 type="text"
-                className="input input-bordered flex-1 mr-4"
+                className={`input input-bordered bg-orange-50 flex-1 mr-4 ${!isValidKey ? 'input-error' : ''}`}
                 value={openaiKey}
-                onChange={(e) => setOpenaiKey(e.target.value)}
+                onChange={handleKeyChange}
                 placeholder="Input your openai key, We will store it encrypted"
               />
-              <button type="submit" className="btn btn-neutral">
+              <button type="submit" className={`btn btn-neutral ${!isValidKey ? "btn-disabled" : ""}`} disabled={!isValidKey}>
                 Submit
               </button>
             </form>

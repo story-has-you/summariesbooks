@@ -51,7 +51,7 @@ export default ({ params }) => {
 
   const initAi = async () => {
     if (!await checkUserStatus()) {
-      console.log("user not login");
+
       return;
     }
     setInitChating(true);

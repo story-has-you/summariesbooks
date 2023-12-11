@@ -10,7 +10,7 @@ export async function GET(request) {
     }
     const data = await selectById(user.id);
     return ok(data);
-  } catch (error) {}
+  } catch (error) { }
   return fail();
 }
 

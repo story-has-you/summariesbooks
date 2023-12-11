@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { request } from "./api";
 
 export const handleError = (data, error) => {
@@ -9,6 +10,10 @@ export const handleError = (data, error) => {
 
 export const getCurrentUser = async () => {
   try {
+    const user = Cookies.get("current_user");
+    if (user) {
+      return JSON.parse(user)
+    }
     const { data, ok } = await request("/api/auth/user");
     if (ok) {
       return data;
