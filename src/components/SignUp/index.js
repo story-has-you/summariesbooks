@@ -1,3 +1,5 @@
+"use client";
+
 import { request } from "@/utils/api";
 import React, { useRef, useState } from "react";
 import Alert from "../Alert";

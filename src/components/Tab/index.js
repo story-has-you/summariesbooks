@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import ChatBox from "../ChatWithBook";
 import Link from "next/link";
@@ -10,7 +10,7 @@ import { getCurrentUser, now } from "@/utils/util";
 import { useEffect, useState } from "react";
 
 const Tab = ({ book, assistant }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
   const [messages, setMessages] = useState([
     {
       sender: `${book.book_name}`, // 或实际的发送者名字
@@ -24,7 +24,9 @@ const Tab = ({ book, assistant }) => {
 
   const isChatActive = activeTab === "chat";
   const isChatDisabled = user && initChating;
-  const chatTabClass = `tab tab-bordered ${isChatActive ? "bg-neutral text-white" : ""} ${isChatDisabled ? "cursor-not-allowed opacity-50" : ""}`;
+  const chatTabClass = `tab tab-bordered ${
+    isChatActive ? "bg-neutral text-white" : ""
+  } ${isChatDisabled ? "cursor-not-allowed opacity-50" : ""}`;
 
   const showChat = () => {
     if (user && user.openai_key) {
@@ -42,10 +44,7 @@ const Tab = ({ book, assistant }) => {
     } else if (user && !user.openai_key) {
       return (
         <div className="mt-5">
-          <InputKey
-            messages={messages}
-            userId={user.id}
-          />
+          <InputKey messages={messages} userId={user.id} />
         </div>
       );
     }
@@ -79,18 +78,18 @@ const Tab = ({ book, assistant }) => {
   const checkUserStatus = async () => {
     const user = await getCurrentUser();
     if (!user) {
-      return false
+      return false;
     }
     const { openai_key } = user;
     if (!openai_key) {
       setInitChating(false);
-      return false
+      return false;
     }
-    return true
-  }
+    return true;
+  };
 
   const initAi = async () => {
-    if (!await checkUserStatus()) {
+    if (!(await checkUserStatus())) {
       return;
     }
     setInitChating(true);
@@ -129,27 +128,33 @@ const Tab = ({ book, assistant }) => {
     <div>
       <div className="tabs tabs-boxed custom-orange-100">
         <a
-          className={`tab tab-bordered ${activeTab === "summary" ? "bg-neutral text-white" : ""}`}
+          className={`tab tab-bordered ${
+            activeTab === "summary" ? "bg-neutral text-white" : ""
+          }`}
           onClick={() => setActiveTab("summary")}
         >
           Summary
         </a>
 
-        {/* <a
+        <a
           className={chatTabClass}
           onClick={handleChatClick}
-          style={{ pointerEvents: isChatDisabled ? 'none' : 'auto' }}
+          style={{ pointerEvents: isChatDisabled ? "none" : "auto" }}
         >
-          {user ? (initChating ? "Chat With Book Initializing..." : "Chat With Book") : "Chat With Book"}
-        </a> */}
+          {user
+            ? initChating
+              ? "Chat With Book Initializing..."
+              : "Chat With Book"
+            : "Chat With Book"}
+        </a>
 
-        <a
+        {/* <a
           className={`tab tab-bordered ${activeTab === "chat" ? "bg-neutral text-white" : ""
             }`}
           onClick={() => setActiveTab("chat")}
         >
           Chat With Book
-        </a>
+        </a> */}
       </div>
 
       <div>

@@ -12,7 +12,7 @@ export default ({ messages, userId }) => {
     const key = e.target.value;
     const keyRegex = /^sk-[a-zA-Z0-9]+$/;
 
-    setIsValidKey(key === '' || keyRegex.test(key));
+    setIsValidKey(key === "" || keyRegex.test(key));
     setOpenaiKey(key);
   };
 
@@ -42,17 +42,25 @@ export default ({ messages, userId }) => {
           {/* 输入框和按钮居中 */}
           <div className="absolute inset-0 flex items-center justify-center">
             <form
-              className="flex items-center p-4 bg-orange-50 shadow-md rounded-lg w-3/4"
+              className="flex items-center p-4 custom-orange-50 shadow-md rounded-lg w-3/4"
               onSubmit={handleSubmit}
             >
               <input
                 type="text"
-                className={`input input-bordered bg-orange-50 flex-1 mr-4 ${!isValidKey ? 'input-error' : ''}`}
+                className={`input input-bordered custom-orange-50 flex-1 mr-4 ${
+                  !isValidKey ? "input-error" : ""
+                }`}
                 value={openaiKey}
                 onChange={handleKeyChange}
                 placeholder="Input your openai key, We will store it encrypted"
               />
-              <button type="submit" className={`btn btn-neutral ${!isValidKey ? "btn-disabled" : ""}`} disabled={!isValidKey}>
+              <button
+                type="submit"
+                className={`btn btn-neutral ${
+                  !isValidKey ? "btn-disabled" : ""
+                }`}
+                disabled={!isValidKey}
+              >
                 Submit
               </button>
             </form>

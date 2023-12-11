@@ -15,7 +15,7 @@ export default () => {
   const handleKeyChange = (e) => {
     const key = e.target.value;
     const keyRegex = /^sk-[a-zA-Z0-9]+$/;
-    setIsValidKey(key === '' || keyRegex.test(key));
+    setIsValidKey(key === "" || keyRegex.test(key));
     setOpenaiKey(key);
   };
   const fetchCurrentUser = async () => {
@@ -41,7 +41,7 @@ export default () => {
       Cookies.remove("openai_key");
       Cookies.remove("current_user");
     }
-  }
+  };
 
   const toggleModal = () => setIsModalOpen(!isModalOpen);
   const handleSubmit = async () => {
@@ -68,9 +68,16 @@ export default () => {
         {user ? (
           <div className="avatar online placeholder dropdown dropdown-hover">
             <div className="bg-neutral text-neutral-content rounded-full w-10">
-              <span className="text-xl">{user.username.length > 2 ? user.username.substring(0, 2) : user.username}</span>
+              <span className="text-xl">
+                {user.username.length > 2
+                  ? user.username.substring(0, 2)
+                  : user.username}
+              </span>
             </div>
-            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow custom-orange-50 rounded-box w-40">
+            <ul
+              tabIndex={0}
+              className="dropdown-content z-[1] menu p-2 shadow custom-orange-50 rounded-box w-40"
+            >
               <li>
                 <a href="#" className="justify-between" onClick={onLogout}>
                   Sign Out
@@ -85,7 +92,11 @@ export default () => {
           </div>
         ) : (
           // 用户未登录，显示登录链接
-          <Link href="/signin" className="btn btn-neutral btn-sm" target="_blank">
+          <Link
+            href="/signin"
+            className="btn btn-neutral btn-sm"
+            target="_blank"
+          >
             Login
           </Link>
         )}
@@ -98,13 +109,25 @@ export default () => {
             <input
               type="text"
               placeholder="Input your openai key, We will store it encrypted"
-              className={`input input-bordered w-full mt-4 bg-orange-50 ${!isValidKey ? 'input-error' : ''}`}
+              className={`input input-bordered w-full mt-4 custom-orange-50 ${
+                !isValidKey ? "input-error" : ""
+              }`}
               value={openaiKey}
               onChange={handleKeyChange}
             />
-            {!isValidKey && <p className="text-red-500 text-xs mt-1">Invalid OpenAI Key format.</p>}
+            {!isValidKey && (
+              <p className="text-red-500 text-xs mt-1">
+                Invalid OpenAI Key format.
+              </p>
+            )}
             <div className="modal-action">
-              <button className={`btn btn-neutral ${!isValidKey ? "btn-disabled" : ""}`} onClick={handleSubmit} disabled={!isValidKey}>
+              <button
+                className={`btn btn-neutral ${
+                  !isValidKey ? "btn-disabled" : ""
+                }`}
+                onClick={handleSubmit}
+                disabled={!isValidKey}
+              >
                 Submit
               </button>
               <button className="btn custom-orange-50" onClick={toggleModal}>
@@ -114,7 +137,6 @@ export default () => {
           </div>
         </div>
       )}
-
     </>
   );
 };

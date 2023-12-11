@@ -1,33 +1,90 @@
-import { BsGithub, BsTwitter } from "react-icons/bs";
+"use client";
+
+import { BsGithub, BsSearch, BsTwitter } from "react-icons/bs";
 import Link from "next/link";
 import User from "../User";
+import { useEffect, useState } from "react";
+import Search from "../Search";
+import "./Header.css";
+import Producthunt from "../Producthunt";
 
 export default () => {
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(null);
+
+  const closeSearch = () => {
+    setIsSearchOpen(false);
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        closeSearch();
+      }
+    };
+
+    // 添加事件监听器
+    document.addEventListener("keydown", handleKeyDown);
+
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    setIsDarkMode(mediaQuery.matches);
+    const handler = () => setIsDarkMode(mediaQuery.matches);
+    mediaQuery.addEventListener("change", handler);
+
+    // 清理函数
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      mediaQuery.removeEventListener("change", handler);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isSearchOpen) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+  }, [isSearchOpen]);
+
   return (
     <header className="mx-auto w-full max-w-7xl px-5 py-2 md:px-10 md:pt-4 lg:pt-8">
       <div className="text-3xl font-medium flex items-center">
         <Link href={"/"}>
           <p className="text-3xl">SummariesBooks</p>
         </Link>
-        <div className="flex-1">
-          <ul className="hidden md:flex float-right text-lg text-slate-700 mr-4 items-center">
+        <div className="flex-1 ">
+          <ul className="hidden md:flex float-right text-lg text-slate-700 mr-4 items-center dark:text-white">
+            {isDarkMode != null && (
+              <li className="mx-4">
+                <Producthunt isDarkMode={isDarkMode} />
+              </li>
+            )}
             <li className="mx-4">
-              <a
+              <Link
+                href="#"
+                className="hover:text-[#2752f4]"
+                onClick={() => setIsSearchOpen(!isSearchOpen)}
+              >
+                <BsSearch className="text-xl" />
+              </Link>
+            </li>
+            <li className="mx-4">
+              <Link
                 href="https://github.com/story-has-you"
                 target="_blank"
                 className="hover:text-[#2752f4]"
               >
                 <BsGithub className="text-xl" />
-              </a>
+              </Link>
             </li>
             <li className="mx-4">
-              <a
+              <Link
                 href="https://x.com/story_has_you"
                 target="_blank"
                 className="hover:text-[#2752f4]"
               >
                 <BsTwitter className="text-xl" />
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -54,6 +111,11 @@ export default () => {
 
         <User></User>
       </div>
+      {isSearchOpen && (
+        <div className="fixed top-0 left-0 w-full h-full bg-white bg-opacity-50 flex items-start justify-center z-50 pt-20 backdrop-blur">
+          <Search />
+        </div>
+      )}
     </header>
   );
 };

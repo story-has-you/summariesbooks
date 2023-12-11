@@ -31,9 +31,9 @@ const TypingIndicator = () => {
   return (
     <>
       <div className="flex items-center p-2">
-        <div className="typing-dot bg-neutral"></div>
-        <div className="typing-dot bg-neutral ml-1"></div>
-        <div className="typing-dot bg-neutral ml-1"></div>
+        <div className="typing-dot bg-neutral dark:bg-white"></div>
+        <div className="typing-dot bg-neutral ml-1 dark:bg-white"></div>
+        <div className="typing-dot bg-neutral ml-1 dark:bg-white"></div>
       </div>
     </>
   );
