@@ -4,7 +4,7 @@ import { request } from "@/utils/api";
 import { encrypt } from "@/utils/crypto";
 import Cookies from "js-cookie";
 
-export default ({ messages, user_id }) => {
+export default ({ messages, userId }) => {
   const [openaiKey, setOpenaiKey] = useState("");
   const [isValidKey, setIsValidKey] = useState(true);
 
@@ -22,7 +22,7 @@ export default ({ messages, user_id }) => {
     const { ok } = await request("/api/auth/user", {
       method: "PUT",
       body: {
-        id: user_id,
+        id: userId,
         openai_key: encrypt(openaiKey),
       },
     });

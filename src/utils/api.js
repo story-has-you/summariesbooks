@@ -25,7 +25,8 @@ export const request = async (url, options = {}) => {
   }
 
   try {
-    const response = await fetch(url, requestOptions);
+    const http_url = `${process.env.NEXT_PUBLIC_API_URL}${url}`;
+    const response = await fetch(http_url, requestOptions);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }

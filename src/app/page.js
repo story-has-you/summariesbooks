@@ -1,37 +1,36 @@
-"use client";
-
 import Producthunt from "@/components/Producthunt";
 import Search from "@/components/Search";
-import Skeleton from "@/components/Skeleton";
 import Bookshelf from "@/components/Bookshelf";
-import { useEffect, useState } from "react";
 import { request } from "@/utils/api";
 import Header from "@/components/Header";
 import Brand from "@/components/Brand";
 import Footer from "@/components/Footer";
 
-export default function Home() {
-  const [books, setBooks] = useState([]);
-  const [loading, setLoading] = useState(false);
 
-  const fetchBookList = async () => {
-    setLoading(true);
+const fetchBooks = async () => {
+  const { data } = await request("/api/books");
+  return data
+};
 
-    const { data } = await request("/api/books");
-    setBooks(data);
-    setLoading(false);
-  };
+const searchBooks = async (keywords, books) => {
+  'use server'
+  const { data } = await request("/api/search", {
+    method: "POST",
+    body: JSON.stringify({ keywords: keywords.trim() })
+  })
+  books = data
+}
 
-  useEffect(() => {
-    fetchBookList();
-  }, []);
+export default async () => {
+  const books = await fetchBooks();
+
   return (
     <main>
       <Header />
       <Brand />
       <Producthunt />
-      <Search setBooks={setBooks} setLoading={setLoading} />
-      {loading ? <Skeleton count={30} /> : <Bookshelf books={books} />}
+      {/* <Search searchBooks={searchBooks} books={books} /> */}
+      <Bookshelf books={books}></Bookshelf>
       <Footer />
     </main>
   );

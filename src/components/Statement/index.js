@@ -18,14 +18,14 @@ export default () => {
         <div className="grid card rounded-box">
           <p className="text-2xl font-bold text-left mb-3">Legal Notice</p>
           <div className="text-base text-left">
-            <div className="pb-3 text-left">
+            <p className="pb-3 text-left">
               The book summaries provided on summariesbooks.com are generated
               using OpenAI technology and are intended for educational,
               informational, and private use purposes only.
-            </div>
-            <div className="pb-3 text-left font-bold">
+            </p>
+            <p className="pb-3 text-left font-bold">
               The summary cannot replace the original work
-            </div>
+            </p>
           </div>
         </div>
       </div>

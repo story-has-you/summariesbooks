@@ -1,13 +1,9 @@
 "use client"
 import { useState, useRef } from "react"
 
-export default ({ setBooks, setLoading }) => {
+export default ({ searchBooks, books }) => {
   const [keywords, setKeywords] = useState("")
   const inputRef = useRef(null)
-
-  const handleInputChange = e => {
-    setKeywords(e.target.value)
-  }
 
   const handleEnter = e => {
     if (e.code === "Enter" && !e.shiftKey) {
@@ -18,19 +14,8 @@ export default ({ setBooks, setLoading }) => {
     }
   }
 
-  const requestBody = {
-    keywords: keywords.trim()
-  }
-
   const handleSearch = async () => {
-    setLoading(true)
-    const res = await fetch("/api/search", {
-      method: "POST",
-      body: JSON.stringify(requestBody)
-    })
-    const { data } = await res.json()
-    setBooks(data)
-    setLoading(false)
+    searchBooks(keywords)
   }
 
   return (
@@ -43,7 +28,7 @@ export default ({ setBooks, setLoading }) => {
             className="form-input mt-1 block w-[600px] p-2 border rounded-lg input-bordered input-primary custom-orange-50"
             placeholder="Enter a book name..."
             onKeyDown={handleEnter}
-            onChange={handleInputChange}
+            onChange={(e) => setKeywords(e.target.value)}
           />
           <button
             className="btn btn-neutral py-2 px-4 ml-2"

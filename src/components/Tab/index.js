@@ -1,18 +1,15 @@
-import React, { useEffect, useState } from "react";
+"use client"
+
 import ChatBox from "../ChatWithBook";
 import Link from "next/link";
-import { getCurrentUser } from "@/utils/util";
 import InputKey from "./InputKey";
 import NeedSignIn from "./NeedSignIn";
+import { request } from "@/utils/api";
+import { talkAi } from "@/utils/openai";
+import { getCurrentUser, now } from "@/utils/util";
+import { useEffect, useState } from "react";
 
-const now = () => {
-  return new Date().toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-};
-
-const Tab = ({ book, assistant, initChating }) => {
+const Tab = ({ book, assistant }) => {
   const [user, setUser] = useState(null);
   const [messages, setMessages] = useState([
     {
@@ -23,6 +20,7 @@ const Tab = ({ book, assistant, initChating }) => {
     },
   ]);
   const [activeTab, setActiveTab] = useState("summary");
+  const [initChating, setInitChating] = useState(true);
 
   const isChatActive = activeTab === "chat";
   const isChatDisabled = user && initChating;
@@ -37,7 +35,6 @@ const Tab = ({ book, assistant, initChating }) => {
             assistant={assistant}
             messages={messages}
             setMessages={setMessages}
-            now={now}
             initChating={initChating}
           ></ChatBox>
         </div>
@@ -47,7 +44,7 @@ const Tab = ({ book, assistant, initChating }) => {
         <div className="mt-5">
           <InputKey
             messages={messages}
-            user_id={user.id}
+            userId={user.id}
           />
         </div>
       );
@@ -66,8 +63,66 @@ const Tab = ({ book, assistant, initChating }) => {
     setUser(user);
   };
 
+  const deleteThread = () => {
+    const thread_id = window.localStorage.getItem(`thread_id_${book.id}`);
+    if (!thread_id) {
+      return;
+    }
+    try {
+      request(`/api/thread/${thread_id}`, { method: "DELETE" });
+      window.localStorage.removeItem(`thread_id_${book.id}`);
+    } catch (error) {
+      console.error("Error deleting thread:", error);
+    }
+  };
+
+  const checkUserStatus = async () => {
+    const user = await getCurrentUser();
+    if (!user) {
+      return false
+    }
+    const { openai_key } = user;
+    if (!openai_key) {
+      setInitChating(false);
+      return false
+    }
+    return true
+  }
+
+  const initAi = async () => {
+    if (!await checkUserStatus()) {
+      return;
+    }
+    setInitChating(true);
+    try {
+      await createThread();
+      const text = `Please parse the uploaded file and answer the question in the language of the questioner.`;
+      const thread_id = window.localStorage.getItem(`thread_id_${book.id}`);
+      if (!thread_id) {
+        return;
+      }
+      talkAi(text, data, (value) => {
+        setInitChating(false);
+      });
+    } catch (error) {
+      console.error("Error fetching assistant:", error);
+      setInitChating(false);
+    }
+  };
+
+  const createThread = async () => {
+    try {
+      const { data } = await request("/api/thread", { method: "POST" });
+      window.localStorage.setItem(`thread_id_${book.id}`, data);
+    } catch (error) {
+      console.error("Error creating thread:", error);
+    }
+  };
+
   useEffect(() => {
     fetchCurrentUser();
+    initAi();
+    return () => deleteThread();
   }, []);
 
   return (
@@ -80,21 +135,21 @@ const Tab = ({ book, assistant, initChating }) => {
           Summary
         </a>
 
-        <a
+        {/* <a
           className={chatTabClass}
           onClick={handleChatClick}
           style={{ pointerEvents: isChatDisabled ? 'none' : 'auto' }}
         >
           {user ? (initChating ? "Chat With Book Initializing..." : "Chat With Book") : "Chat With Book"}
-        </a>
+        </a> */}
 
-        {/* <a
+        <a
           className={`tab tab-bordered ${activeTab === "chat" ? "bg-neutral text-white" : ""
             }`}
           onClick={() => setActiveTab("chat")}
         >
           Chat With Book
-        </a> */}
+        </a>
       </div>
 
       <div>
