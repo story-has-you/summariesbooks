@@ -100,7 +100,7 @@ const Tab = ({ book, assistant }) => {
       if (!thread_id) {
         return;
       }
-      talkAi(text, data, (value) => {
+      talkAi(text, assistant, (value) => {
         setInitChating(false);
       });
     } catch (error) {
