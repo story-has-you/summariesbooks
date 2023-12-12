@@ -19,6 +19,7 @@ export const request = async (url, options = {}) => {
   const requestOptions = {
     headers,
     method,
+    next: { revalidate: 3600 }
   };
   if (body && (method === "POST" || method === "PUT")) {
     requestOptions.body = JSON.stringify(body);
