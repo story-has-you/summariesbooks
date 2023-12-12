@@ -1,4 +1,5 @@
 import Book from "@/components/Book";
+import Brand from "@/components/Brand";
 import { request } from "@/utils/api";
 
 const fetchBook = async (id) => {
@@ -29,8 +30,8 @@ export async function generateMetadata({ params, searchParams }, parent) {
   const book = await fetchBook(id);
 
   return {
-    title: book.book_name,
-    description: `Chat With ${book.book_name}`,
+    title: `Chat With ${book.book_name}`,
+    description: `Chat With ${book.book_name} And Summaries`,
     alternates: {
       canonical: `https://summariesbooks.com/${name}/${id}`,
     },
@@ -40,5 +41,8 @@ export async function generateMetadata({ params, searchParams }, parent) {
 export default async ({ params }) => {
   const book = await fetchBook(params.id);
   const assistant = await fetchAssistant(params.id);
-  return <Book book={book} assistant={assistant} />;
+  return <>
+    <Brand title={`Chat With ${book.book_name}`} />
+    <Book book={book} assistant={assistant} />
+  </>;
 };

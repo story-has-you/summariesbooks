@@ -6,7 +6,6 @@ export default function BookLayout({ children }) {
   return (
     <section>
       <Header />
-      <Brand />
       {children}
       <Footer />
     </section>
