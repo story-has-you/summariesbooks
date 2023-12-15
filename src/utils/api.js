@@ -14,18 +14,23 @@ export const request = async (url, options = {}) => {
     "openai-key": openai_key || "",
   };
 
-  const { method = "GET", body = null } = options;
+  const { method = "GET", body = null, params } = options;
+
+  let queryParams = '';
+  if (params && Object.keys(params).length > 0) {
+    queryParams = new URLSearchParams(params).toString();
+  }
 
   const requestOptions = {
     headers,
-    method,
+    ...options
   };
   if (body && (method === "POST" || method === "PUT")) {
     requestOptions.body = JSON.stringify(body);
   }
 
   try {
-    const http_url = `${process.env.NEXT_PUBLIC_API_URL}${url}`;
+    const http_url = `${process.env.NEXT_PUBLIC_API_URL}${url}${queryParams ? `?${queryParams}` : ''}`;
     const response = await fetch(http_url, requestOptions);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -36,6 +41,7 @@ export const request = async (url, options = {}) => {
     throw error;
   }
 };
+
 
 export const ok = (data) => {
   return Response.json({ data: data, ok: true, message: "SUCCESS" });

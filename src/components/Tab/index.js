@@ -22,11 +22,16 @@ const Tab = ({ book, assistant }) => {
   const [activeTab, setActiveTab] = useState("summary");
   const [initChating, setInitChating] = useState(true);
 
+  useEffect(() => {
+    fetchCurrentUser();
+    initAi();
+    return () => deleteThread();
+  }, []);
+
   const isChatActive = activeTab === "chat";
   const isChatDisabled = user && initChating;
-  const chatTabClass = `tab tab-bordered ${
-    isChatActive ? "bg-neutral text-white" : ""
-  } ${isChatDisabled ? "cursor-not-allowed opacity-50" : ""}`;
+  const chatTabClass = `tab tab-bordered ${isChatActive ? "bg-neutral text-white" : ""
+    } ${isChatDisabled ? "cursor-not-allowed opacity-50" : ""}`;
 
   const showChat = () => {
     if (user && user.openai_key) {
@@ -118,19 +123,12 @@ const Tab = ({ book, assistant }) => {
     }
   };
 
-  useEffect(() => {
-    fetchCurrentUser();
-    initAi();
-    return () => deleteThread();
-  }, []);
-
   return (
     <div>
       <div className="tabs tabs-boxed custom-orange-100">
         <a
-          className={`tab tab-bordered ${
-            activeTab === "summary" ? "bg-neutral text-white" : ""
-          }`}
+          className={`tab tab-bordered ${activeTab === "summary" ? "bg-neutral text-white" : ""
+            }`}
           onClick={() => setActiveTab("summary")}
         >
           Summary

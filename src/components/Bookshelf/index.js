@@ -1,7 +1,39 @@
+"use client"
+
 import Link from "next/link"
 import './Bookshelf.css'
+import { useEffect, useState } from "react";
+import { request } from "@/utils/api";
 
-export default ({ books }) => {
+export default ({ initialBooks }) => {
+  const [books, setBooks] = useState(initialBooks || []);
+  const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const fetchMoreBooks = async () => {
+    setIsLoading(true);
+    const { data } = await request("/api/books", { params: { current: page + 1, limit: 15 } });
+    setBooks([...books, ...data]);
+    setPage(page + 1);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    const handleScroll = async () => {
+      if (isLoading) return;
+
+      const threshold = 300;
+      const position = window.innerHeight + document.documentElement.scrollTop;
+      const height = document.documentElement.offsetHeight;
+
+      if (position + threshold >= height) {
+        await fetchMoreBooks();
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isLoading]); // 依赖于 isLoading 状态
   return (
     <>
       <section className="px-6 max-w-6xl mx-auto md:px-0">
