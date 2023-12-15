@@ -6,7 +6,6 @@ export const selectList = async (start, end) => {
   const { data, error } = await supabase
     .from("book_summary")
     .select("id, book_name, book_author, cover_url")
-    .range(start, end)
     .order("create_time", { ascending: true })
   return handleError(data, error);
 };
