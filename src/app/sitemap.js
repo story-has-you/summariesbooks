@@ -1,7 +1,7 @@
 import { request } from "@/utils/api";
 
 export default async function sitemap() {
-  const { data } = await request("/api/books");
+  const { data } = await request("/api/books", { cache: "no-store" });
   const { books } = data;
   const result = books.map((book) => ({
     url: `https://summariesbooks.com/${book.book_name.replace(/ /g, "-")}/${book.id
