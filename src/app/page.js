@@ -13,17 +13,17 @@ export const metadata = {
 };
 
 const fetchBooks = async () => {
-  const { data } = await request("/api/books", { params: { current: 1, limit: 15 }, cache: 'no-cache' });
+  const { data } = await request("/api/books", { params: { current: 1, limit: 100 } });
   return data;
 };
 
 export default async () => {
-  const books = await fetchBooks();
+  const { books, count } = await fetchBooks();
   return (
     <main>
       <Header />
       <Brand />
-      <Bookshelf initialBooks={books}></Bookshelf>
+      <Bookshelf initialBooks={books} count={count} />
       <Footer />
     </main>
   );

@@ -30,3 +30,11 @@ export const search = async (name) => {
     .order("create_time", { ascending: true });
   return handleError(data, error);
 };
+
+export const selectCount = async () => {
+  const supabase = supabaseClient();
+  const { count, error } = await supabase
+    .from("book_summary")
+    .select("*", { count: 'exact', head: true })
+  return handleError(count, error);
+}

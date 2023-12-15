@@ -1,4 +1,4 @@
-import { selectList } from "@/service/book_summary";
+import { selectCount, selectList } from "@/service/book_summary";
 import { ok } from "@/utils/api"
 
 export async function GET(req) {
@@ -7,9 +7,10 @@ export async function GET(req) {
   const limit = parseInt(searchParams.get("limit"))
   const start = (current - 1) * limit;
   const end = start + limit - 1;
-  const bookList = await selectList(start, end);
-  if (!bookList) {
-    return ok([]);
+  const books = await selectList(start, end);
+  const count = await selectCount()
+  if (!books) {
+    return ok({ books: [], count: 0 });
   }
-  return ok(bookList);
+  return ok({ books, count });
 }

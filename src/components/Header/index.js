@@ -12,10 +12,6 @@ export default () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(null);
 
-  const closeSearch = () => {
-    setIsSearchOpen(false);
-  };
-
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
@@ -45,6 +41,11 @@ export default () => {
       document.body.classList.remove("no-scroll");
     }
   }, [isSearchOpen]);
+
+
+  const closeSearch = () => {
+    setIsSearchOpen(false);
+  };
 
   return (
     <header className="mx-auto w-full max-w-7xl px-5 py-2 md:px-10 md:pt-4 lg:pt-8">
