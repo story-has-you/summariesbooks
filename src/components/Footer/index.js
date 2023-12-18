@@ -1,39 +1,40 @@
 import { BsGithub, BsTwitter } from "react-icons/bs";
 import Statement from "../Statement";
+import Link from "next/link";
 
 export default () => {
   return (
     <footer className="footer footer-center p-10 text-base-content rounded mx-auto">
       <nav className="grid grid-flow-col gap-4">
-        <a className="link link-hover" href="#">
+        <Link className="link link-hover" href="#">
           About us
-        </a>
-        <a className="link link-hover" href="#">
+        </Link>
+        <Link className="link link-hover" href="mailto:fangxi.inori@gmail.com">
           Contact
-        </a>
-        <a className="link link-hover" href="#">
+        </Link>
+        <Link className="link link-hover" href="#">
           Jobs
-        </a>
-        <a className="link link-hover" href="#">
+        </Link>
+        <Link className="link link-hover" href="#">
           Press kit
-        </a>
+        </Link>
       </nav>
       <nav>
         <div className="grid grid-flow-col gap-4">
-          <a
+          <Link
             href="https://github.com/story-has-you"
             target="_blank"
             className="hover:text-[#2752f4]"
           >
             <BsGithub className="text-xl" />
-          </a>
-          <a
+          </Link>
+          <Link
             href="https://x.com/story_has_you"
             target="_blank"
             className="hover:text-[#2752f4]"
           >
             <BsTwitter className="text-xl" />
-          </a>
+          </Link>
         </div>
       </nav>
 
