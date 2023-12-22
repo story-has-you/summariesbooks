@@ -77,7 +77,7 @@ const ChatBox = ({ book, assistant, messages, setMessages, initChating }) => {
           className={`btn btn-neutral ml-2 ${sending ? "btn-disabled" : ""}`}
           disabled={sending}
         >
-          send
+          Send
         </button>
       </div>
     </div>
