@@ -10,7 +10,9 @@ import Producthunt from "../Producthunt";
 
 export default () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(null);
+  const closeSearch = () => {
+    setIsSearchOpen(false);
+  };
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -18,19 +20,10 @@ export default () => {
         closeSearch();
       }
     };
-
     // 添加事件监听器
     document.addEventListener("keydown", handleKeyDown);
-
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    setIsDarkMode(mediaQuery.matches);
-    const handler = () => setIsDarkMode(mediaQuery.matches);
-    mediaQuery.addEventListener("change", handler);
-
-    // 清理函数
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
-      mediaQuery.removeEventListener("change", handler);
     };
   }, []);
 
@@ -42,11 +35,6 @@ export default () => {
     }
   }, [isSearchOpen]);
 
-
-  const closeSearch = () => {
-    setIsSearchOpen(false);
-  };
-
   return (
     <header className="mx-auto w-full max-w-7xl px-5 py-2 md:px-10 md:pt-4 lg:pt-8">
       <div className="text-3xl font-medium flex items-center">
@@ -55,11 +43,9 @@ export default () => {
         </Link>
         <div className="flex-1 ">
           <ul className="hidden md:flex float-right text-lg text-slate-700 mr-4 items-center dark:text-white">
-            {isDarkMode != null && (
-              <li className="mx-4">
-                <Producthunt isDarkMode={isDarkMode} />
-              </li>
-            )}
+            <li className="mx-4">
+              <Producthunt />
+            </li>
             <li className="mx-4">
               <Link
                 href="#"

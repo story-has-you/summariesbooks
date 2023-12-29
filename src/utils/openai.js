@@ -35,16 +35,18 @@ export const talkAi = async (text, assistant, callback) => {
 };
 
 const loopStatus = (thread_id, run_id, callback) => {
+  let callbacked = false;
   const timer = setInterval(async () => {
     const status = await fatchRetrieveRun(thread_id, run_id);
     if (status == "completed") {
       clearInterval(timer);
       const value = await fatchMessages(thread_id);
-      if (callback) {
+      if (callback && !callbacked) {
+        callbacked = true;
         callback(value);
       }
     }
-  }, 3000);
+  }, 1000);
 };
 
 const fatchRetrieveRun = async (thread_id, run_id) => {
