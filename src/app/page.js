@@ -10,6 +10,9 @@ export const metadata = {
   alternates: {
     canonical: "https://summariesbooks.com",
   },
+  other: {
+    "google-adsense-account": process.env.NEXT_PUBLIC_CA_PUB,
+  },
 };
 
 const fetchBooks = async () => {

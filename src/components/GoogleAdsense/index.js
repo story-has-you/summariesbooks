@@ -4,7 +4,7 @@ export default () => {
   return (
     <Script
       async
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7443304090881953"
+      src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_CA_PUB}`}
       crossorigin="anonymous"
       strategy="lazyOnload"
     ></Script>
