@@ -38,7 +38,7 @@ export default () => {
   return (
     <header className="mx-auto w-full max-w-7xl px-5 py-2 md:px-10 md:pt-4 lg:pt-8">
       <div className="text-3xl font-medium flex items-center">
-        <Link href={"/"}>
+        <Link href={"https://summariesbooks.com"}>
           <p className="text-3xl">SummariesBooks</p>
         </Link>
         <div className="flex-1 ">
